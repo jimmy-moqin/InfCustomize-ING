@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ModifyWindow</class>
+ <widget class="QMainWindow" name="ModifyWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1149</width>
+    <height>765</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="font">
+   <font>
+    <family>Consolas</family>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Infinitode2修改器</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="basicTab">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="title">
+        <string>基础变量修改</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,3">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,8">
+          <item>
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>搜索/筛选</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,8,1">
+               <item>
+                <widget class="QLabel" name="label_2">
+                 <property name="text">
+                  <string>搜索</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLineEdit" name="basicTab_searchLineEdit"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_searchBtn">
+                 <property name="text">
+                  <string>搜索</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4,4,1">
+               <item>
+                <widget class="QLabel" name="label_3">
+                 <property name="text">
+                  <string>筛选</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="basicTab_selectComboBox_1">
+                 <item>
+                  <property name="text">
+                   <string>塔属性</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>技能</string>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>杂项</string>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="basicTab_selectComboBox_2"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_selectBtn">
+                 <property name="text">
+                  <string>筛选</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="basicTab_tableWidget">
+            <property name="font">
+             <font>
+              <family>Consolas</family>
+             </font>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::SolidLine</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>false</bool>
+            </property>
+            <attribute name="horizontalHeaderVisible">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderDefaultSectionSize">
+             <number>140</number>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>30</number>
+            </attribute>
+            <attribute name="verticalHeaderDefaultSectionSize">
+             <number>45</number>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>变量</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>含义</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>类型</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>默认值</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>修改值</string>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,7,2">
+          <item>
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>导入-初始基础变量文件路径</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="8,2">
+             <item>
+              <widget class="QLineEdit" name="basicTab_initFileLineEdit"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="basicTab_browseBtn">
+               <property name="text">
+                <string>浏览</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>修改记录</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_6">
+             <item>
+              <widget class="QListWidget" name="basicTab_modifyRecordListWidget">
+               <property name="font">
+                <font>
+                 <family>Consolas</family>
+                </font>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_7">
+               <item>
+                <widget class="QPushButton" name="basicTab_copyRecordBtn">
+                 <property name="text">
+                  <string>复制记录</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_exportRecordBtn">
+                 <property name="text">
+                  <string>导出记录</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_resetModifyBtn">
+                 <property name="text">
+                  <string>重置修改</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="title">
+             <string>导出-修改后基础变量文件路径</string>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <item>
+                <widget class="QLineEdit" name="basicTab_modifyFileLineEdit"/>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_exportFileBtn">
+                 <property name="text">
+                  <string>导出</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="6,4">
+               <item>
+                <widget class="QLabel" name="label">
+                 <property name="text">
+                  <string>直接覆盖原有基础变量文件</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_applyBtn">
+                 <property name="text">
+                  <string>应用/覆盖</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="towerTab">
+       <attribute name="title">
+        <string>防御塔属性修改</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="levelTab">
+       <attribute name="title">
+        <string>关卡任务修改</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="researchTab">
+       <attribute name="title">
+        <string>研究修改</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="achievementTab">
+       <attribute name="title">
+        <string>成就修改</string>
+       </attribute>
+      </widget>
+      <widget class="QWidget" name="statTab">
+       <attribute name="title">
+        <string>统计数据修改</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1149</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuLoad">
+    <property name="title">
+     <string>文件</string>
+    </property>
+    <addaction name="actionLoad_game_path"/>
+    <addaction name="actionLoad_archive"/>
+    <addaction name="actionLoad_resource"/>
+    <addaction name="separator"/>
+    <addaction name="actionLoad_custom_conf"/>
+    <addaction name="actionSave_modify"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>备份</string>
+    </property>
+    <addaction name="actionGenerate_backup"/>
+    <addaction name="actionRestore_backup"/>
+    <addaction name="separator"/>
+    <addaction name="actionBackup_list"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>关于</string>
+    </property>
+    <addaction name="actionVersion_information"/>
+    <addaction name="actionAuthor"/>
+    <addaction name="actionReport_bugs"/>
+   </widget>
+   <addaction name="menuLoad"/>
+   <addaction name="menu"/>
+   <addaction name="menu_2"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionLoad_game_path">
+   <property name="text">
+    <string>载入游戏路径</string>
+   </property>
+  </action>
+  <action name="actionLoad_archive">
+   <property name="text">
+    <string>载入存档</string>
+   </property>
+  </action>
+  <action name="actionLoad_resource">
+   <property name="text">
+    <string>载入资源文件</string>
+   </property>
+  </action>
+  <action name="actionLoad_custom_conf">
+   <property name="text">
+    <string>打开修改文件</string>
+   </property>
+  </action>
+  <action name="actionSave_modify">
+   <property name="text">
+    <string>保存修改文件</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="text">
+    <string>另存为</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>退出</string>
+   </property>
+  </action>
+  <action name="actionGenerate_backup">
+   <property name="text">
+    <string>生成备份</string>
+   </property>
+  </action>
+  <action name="actionRestore_backup">
+   <property name="text">
+    <string>恢复备份</string>
+   </property>
+  </action>
+  <action name="actionBackup_list">
+   <property name="text">
+    <string>管理备份</string>
+   </property>
+  </action>
+  <action name="actionVersion_information">
+   <property name="text">
+    <string>版本信息</string>
+   </property>
+  </action>
+  <action name="actionAuthor">
+   <property name="text">
+    <string>作者信息</string>
+   </property>
+  </action>
+  <action name="actionReport_bugs">
+   <property name="text">
+    <string>报告错误</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
