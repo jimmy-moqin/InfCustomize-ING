@@ -558,8 +558,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             pass
     
     def applyFile(self):
-        QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.Ok, QMessageBox.Cancel)
-        if QMessageBox.Ok:
+        choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.Ok, QMessageBox.Cancel)
+        if choose == QMessageBox.Ok:
             path = os.path.join(self.gamePath,"res/" 'game-values.json')
             if path != '':
                 outputDict = self.gameValueFileContent.copy()
