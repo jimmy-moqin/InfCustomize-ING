@@ -35,7 +35,10 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>5</number>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
       </property>
       <widget class="QWidget" name="basicTab">
        <property name="sizePolicy">
@@ -134,7 +137,7 @@
              <bool>false</bool>
             </property>
             <attribute name="horizontalHeaderVisible">
-             <bool>true</bool>
+             <bool>false</bool>
             </attribute>
             <attribute name="horizontalHeaderDefaultSectionSize">
              <number>140</number>
@@ -181,16 +184,9 @@
             <property name="title">
              <string>导入-初始基础变量文件路径</string>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="8,2">
+            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="8">
              <item>
               <widget class="QLineEdit" name="basicTab_initFileLineEdit"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="basicTab_browseBtn">
-               <property name="text">
-                <string>浏览</string>
-               </property>
-              </widget>
              </item>
             </layout>
            </widget>
@@ -208,21 +204,17 @@
                  <family>Consolas</family>
                 </font>
                </property>
+               <property name="sortingEnabled">
+                <bool>false</bool>
+               </property>
               </widget>
              </item>
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_7">
                <item>
-                <widget class="QPushButton" name="basicTab_copyRecordBtn">
+                <widget class="QPushButton" name="basicTab_recallRecordBtn">
                  <property name="text">
-                  <string>复制记录</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="basicTab_exportRecordBtn">
-                 <property name="text">
-                  <string>导出记录</string>
+                  <string>撤回修改</string>
                  </property>
                 </widget>
                </item>
@@ -230,6 +222,13 @@
                 <widget class="QPushButton" name="basicTab_resetModifyBtn">
                  <property name="text">
                   <string>重置修改</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_exportRecordBtn">
+                 <property name="text">
+                  <string>导出记录</string>
                  </property>
                 </widget>
                </item>
@@ -241,36 +240,33 @@
           <item>
            <widget class="QGroupBox" name="groupBox_3">
             <property name="title">
-             <string>导出-修改后基础变量文件路径</string>
+             <string>导出</string>
             </property>
             <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
-                <widget class="QLineEdit" name="basicTab_modifyFileLineEdit"/>
-               </item>
-               <item>
-                <widget class="QPushButton" name="basicTab_exportFileBtn">
+                <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>导出</string>
+                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可以选择直接覆盖原有 &lt;span style=&quot; text-decoration: underline;&quot;&gt;game-value.josn&lt;/span&gt; 文件&lt;/p&gt;&lt;p&gt;也可以导出到其他目录&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="6,4">
-               <item>
-                <widget class="QLabel" name="label">
-                 <property name="text">
-                  <string>直接覆盖原有基础变量文件</string>
-                 </property>
-                </widget>
-               </item>
+              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="5,5">
                <item>
                 <widget class="QPushButton" name="basicTab_applyBtn">
                  <property name="text">
                   <string>应用/覆盖</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="basicTab_outputBtn">
+                 <property name="text">
+                  <string>导出</string>
                  </property>
                 </widget>
                </item>

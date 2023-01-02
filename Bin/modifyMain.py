@@ -2,20 +2,20 @@ import json
 import logging
 import os
 import pickle as pkl
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate,
                              QMainWindow, QMessageBox, QTableWidgetItem)
 from ui.modify import Ui_ModifyWindow
-from utils.StringFormatter import StringFormatter
 
 
-class logger:
+class logger(object):
 
     def __init__(self, name):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
-        self.fh = logging.FileHandler('log.log',encoding='utf-8')
+        self.fh = logging.FileHandler('log.log', encoding='utf-8')
         self.fh.setLevel(logging.DEBUG)
         self.ch = logging.StreamHandler()
         self.ch.setLevel(logging.DEBUG)
@@ -49,6 +49,120 @@ class EmptyDelegate(QItemDelegate):
         return None
 
 
+class ListWidgetManager():
+    '''ListWidget管理类'''
+
+    def __init__(self, listWidget):
+        self.listWidget = listWidget
+        self.varList = []
+        self.varValueDict = {}
+
+    def add(self, var, value):
+        '''添加变量名和变量值'''
+        self.varList.append(var)
+        self.varValueDict[var] = value
+        item = self.string2listwidget(var, value, 25)
+        self.listWidget.addItem(item)
+
+    def clear(self):
+        '''清空ListWidget'''
+        self.listWidget.clear()
+        self.varList = []
+        self.varValueDict = {}
+        print(self.varList)
+
+    def remove(self, row):
+        '''删除选中的变量'''
+        var = self.varList[row]
+        self.listWidget.takeItem(row)  # 删除原来的变量
+        self.varList.remove(var)  # 在列表中删除
+        self.varValueDict.pop(var)  # 在字典中删除
+        print(self.varList)
+
+    def string2listwidget(self, var, value, lenth=20):
+        '''该格式化函数,用于将修改后的变量名和变量值格式化地显示在Listwidget中'''
+        if var == '': return
+        if value == '': return
+        if len(var) >= lenth:
+            per = lenth - 6
+            pre_var = var[:per]
+            suf_var = var[-3:]
+            var = pre_var + '...' + suf_var
+        else:
+            var = var.rjust(lenth, ' ')
+
+        return "{} -> {}".format(var, value)
+
+    def update(self, var, value):
+        '''更新变量'''
+        if var not in self.varList:
+
+            self.add(var, value)
+        else:
+            row = self.varList.index(var)
+            self.listWidget.takeItem(row)  # 删除原来的变量
+            self.varList.remove(var)  # 在列表中删除
+            self.varValueDict.pop(var)  # 在字典中删除
+            self.add(var, value)  # 添加新的变量
+        print(self.varList)
+
+    def getvar(self, row):
+        '''获取变量名'''
+        return self.varList[row]
+
+    def output(self, path):
+        '''输出变量值'''
+        with open(path, 'w') as f:
+            for var, value in self.varValueDict.items():
+                f.write('{}\n'.format(self.string2listwidget(var, value, 25)))
+
+
+class TableWidgetManager():
+    '''TableWidget管理类'''
+
+    def __init__(self, tableWidget):
+        self.tableWidget = tableWidget
+
+    def getCurrentVars(self):
+        '''获取当前表格中的变量名'''
+        varList = []
+        for i in range(self.tableWidget.rowCount()):
+            varList.append(self.tableWidget.item(i, 0).text().replace(" ", "_"))
+        return varList
+
+    def renderItemsFromDict(self, varValueDict):
+        '''从字典中添加变量'''
+        # 清空表格
+        self.tableWidget.clearContents()
+        # 设置表格行数
+        self.tableWidget.setRowCount(len(varValueDict))
+
+        i = 0
+        for row in varValueDict:
+            var = QTableWidgetItem(row.replace("_", " "))
+            units = QTableWidgetItem(varValueDict[row]['units'])
+            default = QTableWidgetItem(str(varValueDict[row]['default']))
+            desc = QTableWidgetItem(varValueDict[row]['desc'])
+            modify = QTableWidgetItem(str(varValueDict[row].get('modify', '')))
+
+            self.tableWidget.setItem(i, 0, var)
+            self.tableWidget.setItem(i, 1, desc)
+            if units.text() == 'UNITS_PER_SECOND':
+                units.setText('1单位/秒')
+            elif units.text() == 'SECONDS':
+                units.setText('秒')
+            elif units.text() == 'PERCENTS':
+                units.setText('百分比')
+            elif units.text() == 'UNITS':
+                units.setText('1单位')
+            elif units.text() == 'BOOLEAN':
+                units.setText('布尔值')
+            self.tableWidget.setItem(i, 2, units)
+            self.tableWidget.setItem(i, 3, default)
+            self.tableWidget.setItem(i, 4, modify)
+            i += 1
+
+
 class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
     def __init__(self):
@@ -57,6 +171,10 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 实例化日志对象
         self.logger = logger('modifyMain')
+        # 实例化ListWidget管理类
+        self.listWidgetManager = ListWidgetManager(self.basicTab_modifyRecordListWidget)
+        # 实例化TableWidget管理类
+        self.tableWidgetManager = TableWidgetManager(self.basicTab_tableWidget)
 
         # 获取当前路径
         self.currentPath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,8 +182,11 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 默认文件路径
         self.defaultFilePath = os.path.join(self.currentPath, 'default')
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
+        #
 
         self.initMenu()
+
+        self.initUI()
 
     def initMenu(self):
         '''初始化及绑定菜单栏动作'''
@@ -76,13 +197,20 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 载入资源文件
         self.actionLoad_resource.triggered.connect(self.loadResourceFile)
 
+    def initUI(self):
+        '''初始化UI'''
         # 在未载入游戏路径时禁用TabWidget
-        for i in range(0, 6):
+        for i in range(1, 6):
             self.tabWidget.setTabEnabled(i, False)
 
         # 绑定按钮动作
         self.basicTab_searchBtn.clicked.connect(self.searchBasicVar)
         self.basicTab_selectBtn.clicked.connect(self.selectBasicVar)
+        self.basicTab_recallRecordBtn.clicked.connect(self.recallRecord)
+        self.basicTab_resetModifyBtn.clicked.connect(self.resetRecord)
+        self.basicTab_exportRecordBtn.clicked.connect(self.exportRecord)
+        self.basicTab_outputBtn.clicked.connect(self.outputFile)
+        self.basicTab_applyBtn.clicked.connect(self.applyFile)
 
         # 绑定ComboBox动作
         self.basicTab_selectComboBox_1.activated.connect(self.selectChange)
@@ -224,35 +352,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                     'desc']
             else:
                 self.gameValueFileContent[var]['desc'] = '-'
-
-        # 设置表格行数
-        self.basicTab_tableWidget.setRowCount(len(self.gameValueFileContent))
-
-        i = 0
-        for row in self.gameValueFileContent:
-            var = QTableWidgetItem(row.replace("_", " "))
-            units = QTableWidgetItem(self.gameValueFileContent[row]['units'])
-            default = QTableWidgetItem(str(self.gameValueFileContent[row]['default']))
-            desc = QTableWidgetItem(self.gameValueFileContent[row]['desc'])
-            modify = QTableWidgetItem(
-                str(self.gameValueFileContent[row].get('modify', '')))
-
-            self.basicTab_tableWidget.setItem(i, 0, var)
-            self.basicTab_tableWidget.setItem(i, 1, desc)
-            if units.text() == 'UNITS_PER_SECOND':
-                units.setText('1单位/秒')
-            elif units.text() == 'SECONDS':
-                units.setText('秒')
-            elif units.text() == 'PERCENTS':
-                units.setText('百分比')
-            elif units.text() == 'UNITS':
-                units.setText('1单位')
-            elif units.text() == 'BOOLEAN':
-                units.setText('布尔值')
-            self.basicTab_tableWidget.setItem(i, 2, units)
-            self.basicTab_tableWidget.setItem(i, 3, default)
-            self.basicTab_tableWidget.setItem(i, 4, modify)
-            i += 1
+        # 从字典将数据渲染到表格中
+        self.tableWidgetManager.renderItemsFromDict(self.gameValueFileContent)
 
     def searchBasicVar(self):
         '''搜索基础变量'''
@@ -274,33 +375,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                         resDict[var] = self.gameValueFileContent[var]
             # 清空表格
             self.basicTab_tableWidget.clearContents()
-            # 设置表格行数
-            self.basicTab_tableWidget.setRowCount(len(resDict))
-            i = 0
-            for row in resDict:
-                var = QTableWidgetItem(row.replace("_", " "))
-                units = QTableWidgetItem(resDict[row]['units'])
-                default = QTableWidgetItem(str(resDict[row]['default']))
-                desc = QTableWidgetItem(resDict[row]['desc'])
-                modify = QTableWidgetItem(
-                    str(self.gameValueFileContent[row].get('modify', '')))
-
-                self.basicTab_tableWidget.setItem(i, 0, var)
-                self.basicTab_tableWidget.setItem(i, 1, desc)
-                if units.text() == 'UNITS_PER_SECOND':
-                    units.setText('1单位/秒')
-                elif units.text() == 'SECONDS':
-                    units.setText('秒')
-                elif units.text() == 'PERCENTS':
-                    units.setText('百分比')
-                elif units.text() == 'UNITS':
-                    units.setText('1单位')
-                elif units.text() == 'BOOLEAN':
-                    units.setText('布尔值')
-                self.basicTab_tableWidget.setItem(i, 2, units)
-                self.basicTab_tableWidget.setItem(i, 3, default)
-                self.basicTab_tableWidget.setItem(i, 4, modify)
-                i += 1
+            # 将搜索结果渲染到表格中
+            self.tableWidgetManager.renderItemsFromDict(resDict)
         return resDict
 
     def selectChange(self):
@@ -390,35 +466,10 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         for var in self.gameValueFileContent:
             if selectKeywordDict[select] in var:
                 resDict[var] = self.gameValueFileContent[var]
-        # 清空表格
-        self.basicTab_tableWidget.clearContents()
-        # 设置表格行数
-        self.basicTab_tableWidget.setRowCount(len(resDict))
-        i = 0
-        for row in resDict:
-            var = QTableWidgetItem(row.replace("_", " "))
-            units = QTableWidgetItem(resDict[row]['units'])
-            default = QTableWidgetItem(str(resDict[row]['default']))
-            desc = QTableWidgetItem(resDict[row]['desc'])
-            modify = QTableWidgetItem(
-                str(self.gameValueFileContent[row].get('modify', '')))
 
-            self.basicTab_tableWidget.setItem(i, 0, var)
-            self.basicTab_tableWidget.setItem(i, 1, desc)
-            if units.text() == 'UNITS_PER_SECOND':
-                units.setText('1单位/秒')
-            elif units.text() == 'SECONDS':
-                units.setText('秒')
-            elif units.text() == 'PERCENTS':
-                units.setText('百分比')
-            elif units.text() == 'UNITS':
-                units.setText('1单位')
-            elif units.text() == 'BOOLEAN':
-                units.setText('布尔值')
-            self.basicTab_tableWidget.setItem(i, 2, units)
-            self.basicTab_tableWidget.setItem(i, 3, default)
-            self.basicTab_tableWidget.setItem(i, 4, modify)
-            i += 1
+        # 将筛选结果渲染到表格中
+        self.tableWidgetManager.renderItemsFromDict(resDict)
+
         return resDict
 
     def valueModify(self):
@@ -427,8 +478,102 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         if col == 4:
             value = self.basicTab_tableWidget.item(row, col).text()
             if value != '':
+                if self.basicTab_tableWidget.item(row, 2).text() == '布尔值':
+                    if value in ["1", "0"]:
+                        pass
+                    else:
+                        self.basicTab_tableWidget.item(row, col).setText('')
+                        QMessageBox.warning(self, '错误', '布尔值只能为0或1')
+                        self.logger.error('布尔值只能为0或1')
+                        return 0
+
                 var = self.basicTab_tableWidget.item(row, 0).text().replace(" ", "_")
                 self.gameValueFileContent[var]['modify'] = value
-                rec = StringFormatter.string2listwidget(var, value, 25)
-                # 将修改记录添加到ListWidget中
-                self.basicTab_modifyRecordListWidget.addItem(rec)
+
+                self.listWidgetManager.update(var, value)
+                self.logger.info(f'修改变量{var}的值为{value}')
+
+    def recallRecord(self):
+        currentRow = self.basicTab_modifyRecordListWidget.currentRow()
+        print(currentRow)
+        if currentRow != -1:
+            var = self.listWidgetManager.getvar(currentRow)  # 获取撤回的变量
+            self.listWidgetManager.remove(currentRow)  # 删除撤回的变量
+            print(var)
+            # 获取当前表格中显示的所有变量
+            currentTableVars = self.tableWidgetManager.getCurrentVars()
+            if var in currentTableVars:
+                # 如果撤回的变量在表格中，那么就刷新显示
+                self.basicTab_tableWidget.item(currentTableVars.index(var), 4).setText('')
+            else:
+                # 如果撤回的变量不在表格中，那么就更新gameValueFileContent
+                self.gameValueFileContent[var]['modify'] = ''
+            self.logger.info(f'撤回修改变量{var}')
+
+    def resetRecord(self):
+        choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复',
+                                         QMessageBox.Ok | QMessageBox.Cancel)
+        if choose == QMessageBox.Ok:
+            # 获取当前表格中显示的所有变量
+            currentTableVars = self.tableWidgetManager.getCurrentVars()
+            for var in self.listWidgetManager.varList:
+                self.gameValueFileContent[var]['modify'] = ''
+                if var in currentTableVars:
+                    self.basicTab_tableWidget.item(currentTableVars.index(var),
+                                                   4).setText('')
+
+            self.listWidgetManager.clear()
+            self.logger.info('重置修改记录')
+        else:
+            pass
+
+    def exportRecord(self):
+        if self.listWidgetManager.varList == []:
+            QMessageBox.warning(self, '错误', '没有修改记录')
+            self.logger.error('没有修改记录')
+            return 0
+        else:
+            path = QFileDialog.getSaveFileName(self, '保存修改记录', './', '文本文件(*.txt)')[0]
+            if path != '':
+                self.listWidgetManager.output(path)
+                self.logger.info(f'保存修改记录到{path}')
+            else:
+                pass
+
+    def outputFile(self):
+        path = QFileDialog.getSaveFileName(self, '保存修改后的文件', './', 'json源文件(*.json)')[0]
+        if path != '':
+            outputDict = self.gameValueFileContent.copy()
+            modifyVars = self.listWidgetManager.varList
+            for var in modifyVars:
+                outputDict[var]['default'] = int(outputDict[var]['modify'])
+                del outputDict[var]['modify']
+            for var in outputDict:
+                del outputDict[var]['desc']
+
+            with open(path, 'w', encoding='utf-8') as f:
+                json.dump(outputDict, f, indent=4, ensure_ascii=False)
+            self.logger.info(f'保存修改后的文件到{path}')
+        else:
+            pass
+    
+    def applyFile(self):
+        QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.Ok, QMessageBox.Cancel)
+        if QMessageBox.Ok:
+            path = os.path.join(self.gamePath,"res/" 'game-values.json')
+            if path != '':
+                outputDict = self.gameValueFileContent.copy()
+                modifyVars = self.listWidgetManager.varList
+                for var in modifyVars:
+                    outputDict[var]['default'] = int(outputDict[var]['modify'])
+                    del outputDict[var]['modify']
+                for var in outputDict:
+                    del outputDict[var]['desc']
+
+                with open(path, 'w', encoding='utf-8') as f:
+                    json.dump(outputDict, f, indent=4, ensure_ascii=False)
+                self.logger.info(f'覆盖修改后的文件到{path}')
+            else:
+                pass
+        else:
+            pass
