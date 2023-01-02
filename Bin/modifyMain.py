@@ -430,5 +430,5 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 var = self.basicTab_tableWidget.item(row, 0).text().replace(" ", "_")
                 self.gameValueFileContent[var]['modify'] = value
                 rec = StringFormatter.string2listwidget(var, value, 25)
-                # 将修改记录添加到ListWidget中c
+                # 将修改记录添加到ListWidget中
                 self.basicTab_modifyRecordListWidget.addItem(rec)
