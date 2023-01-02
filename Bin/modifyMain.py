@@ -4,8 +4,8 @@ import os
 import pickle as pkl
 
 from PyQt5 import QtCore
-from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate, QMainWindow,
-                             QMessageBox, QTableWidgetItem)
+from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate,
+                             QMainWindow, QMessageBox, QTableWidgetItem)
 from ui.modify import Ui_ModifyWindow
 from utils.StringFormatter import StringFormatter
 
@@ -15,7 +15,7 @@ class logger:
     def __init__(self, name):
         self.logger = logging.getLogger(name)
         self.logger.setLevel(logging.DEBUG)
-        self.fh = logging.FileHandler('log.txt')
+        self.fh = logging.FileHandler('log.log',encoding='utf-8')
         self.fh.setLevel(logging.DEBUG)
         self.ch = logging.StreamHandler()
         self.ch.setLevel(logging.DEBUG)
