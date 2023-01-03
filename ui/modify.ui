@@ -26,6 +26,18 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="leftMargin">
+     <number>6</number>
+    </property>
+    <property name="topMargin">
+     <number>6</number>
+    </property>
+    <property name="rightMargin">
+     <number>6</number>
+    </property>
+    <property name="bottomMargin">
+     <number>6</number>
+    </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="sizePolicy">
@@ -35,7 +47,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>5</number>
+       <number>1</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>false</bool>
@@ -283,6 +295,600 @@
        <attribute name="title">
         <string>防御塔属性修改</string>
        </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,19">
+        <property name="leftMargin">
+         <number>11</number>
+        </property>
+        <item>
+         <widget class="QScrollArea" name="leftTagsScrollArea">
+          <property name="styleSheet">
+           <string notr="true">QScrollBar {height:0px;}
+QScrollBar {width:0px;}
+</string>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::NoFrame</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Plain</enum>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOn</enum>
+          </property>
+          <property name="horizontalScrollBarPolicy">
+           <enum>Qt::ScrollBarAlwaysOff</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>-206</y>
+             <width>55</width>
+             <height>894</height>
+            </rect>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="sizeConstraint">
+             <enum>QLayout::SetNoConstraint</enum>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QWidget" name="widget" native="true">
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <property name="spacing">
+                <number>10</number>
+               </property>
+               <property name="leftMargin">
+                <number>3</number>
+               </property>
+               <property name="topMargin">
+                <number>5</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>5</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="towerTab_basicTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{
+	border-image:url(:/tower_c/tower_48_color/TOWER_BASIC.png)
+}
+QLabel{
+	border-image: url(:/tower_g/tower_48_grey/TOWER_BASIC_1.png);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_sniperTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>43</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>43</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{
+	border-image:url(:/tower_c/tower_48_color/TOWER_SNIPER.png)
+}
+QLabel{
+	border-image: url(:/tower_g/tower_48_grey/TOWER_SNIPER_1.png);
+}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_connonTag">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>49</horstretch>
+                   <verstretch>49</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_CANNON.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_CANNON_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_freezingTag">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_FREEZING.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_FREEZING_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_airTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>43</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>43</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_AIR.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_AIR_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_splashTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>52</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>52</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_SPLASH.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_SPLASH_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_blastTag">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_BLAST.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_BLAST_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_multishotTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>43</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>43</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_MULTISHOT.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_MULTISHOT_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_minigunTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_MINIGUN.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_MINIGUN_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_venomTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>42</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>42</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_VENOM.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_VENOM_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_teslaTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_TESLA.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_TESLA_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_missileTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>29</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>29</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_MISSILE.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_MISSILE_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_flameTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>47</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_FLAME.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_FLAME_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_laserTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_LASER.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_LASER_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_gaussTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_GAUSS.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_GAUSS_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="towerTab_crusherTag">
+                 <property name="minimumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>49</width>
+                   <height>49</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_CRUSHER.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_CRUSHER_1.png);}</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="mainScrollArea">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="scrollAreaWidgetContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>1045</width>
+             <height>651</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,8,0,3,4">
+            <item>
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>基础属性</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="tableWidget"/>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>伤害倍率</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="tableWidget_2"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="8,2">
+              <item>
+               <layout class="QVBoxLayout" name="verticalLayout_10">
+                <item>
+                 <widget class="QLabel" name="label_6">
+                  <property name="text">
+                   <string>特殊能力</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QTableWidget" name="tableWidget_3"/>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_5">
+                <property name="title">
+                 <string>导出</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_9">
+                 <item>
+                  <widget class="QPushButton" name="pushButton">
+                   <property name="text">
+                    <string>导出</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushButton_2">
+                   <property name="text">
+                    <string>应用/覆盖</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="levelTab">
        <attribute name="title">
@@ -419,6 +1025,8 @@
    </property>
   </action>
  </widget>
- <resources/>
+ <resources>
+  <include location="../img/tower.qrc"/>
+ </resources>
  <connections/>
 </ui>
