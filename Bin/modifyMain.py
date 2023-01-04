@@ -220,7 +220,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 设置表格头部自适应缩放
         self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(
-            QHeaderView.Stretch)
+            QHeaderView.ResizeMode.Stretch)
         self.basicTab_tableWidget.verticalHeader().setHidden(True)
         # 设置表格自动换行
         self.basicTab_tableWidget.setWordWrap(True)
@@ -232,7 +232,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         '''载入游戏路径'''
         print('载入游戏路径')
         self.gamePath = QFileDialog.getExistingDirectory(
-            self, "选取文件夹", "G:\SteamLibrary\steamapps\common\Infinitode 2") + '/'
+            self, "选取文件夹", "G:/SteamLibrary/steamapps/common/Infinitode 2") + '/'
 
         # 获取路径下的文件夹
         gamePathList = os.listdir(self.gamePath)
@@ -258,7 +258,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                     QMessageBox.warning(
                         self, '警告',
                         "在当前游戏路径的 res 文件夹下未找到 {} 文件\n请重新选择游戏安装路径，或使用 '载入资源文件' 手动选择 res 文件夹"
-                        .format(file), QMessageBox.Yes)
+                        .format(file), QMessageBox.StandardButton.Yes)
                     break
             # 如果目标文件都存在，则载入文件路径
             else:
@@ -287,14 +287,14 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             QMessageBox.warning(
                 self, '警告',
                 "在当前游戏路径 {} 未找到 res 文件夹\n请重新选择游戏安装路径，或使用 '载入资源文件' 手动选择 res 文件夹".format(
-                    self.gamePath), QMessageBox.Yes)
+                    self.gamePath), QMessageBox.StandardButton.Yes)
             return 0
 
     def loadResourceFile(self):
         '''载入资源文件'''
         print('载入资源文件')
         self.resource = QFileDialog.getExistingDirectory(
-            self, "选取文件夹", "G:\SteamLibrary\steamapps\common\Infinitode 2")
+            self, "选取文件夹", "G:/SteamLibrary/steamapps/common/Infinitode 2")
         # res文件夹下的目标文件
         resourceFileList = [
             "achievements.json",
@@ -312,7 +312,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 self.logger.error('未找到文件 {}'.format(file))
                 QMessageBox.warning(self, '警告',
                                     "在当前资源路径的 res 文件夹下未找到 {} 文件\n请重新选择资源路径".format(file),
-                                    QMessageBox.Yes)
+                                    QMessageBox.StandardButton.Yes)
                 return 0
         # 如果目标文件都存在，则载入文件路径
         else:
@@ -348,8 +348,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 将变量的描述信息填充到变量字典中
         for var in self.gameValueFileContent:
             if defaultGameValueFileContent[var].get('desc'):
-                self.gameValueFileContent[var]['desc'] = defaultGameValueFileContent[var][
-                    'desc']
+                self.gameValueFileContent[var]['desc'] = defaultGameValueFileContent[var]['desc']
             else:
                 self.gameValueFileContent[var]['desc'] = '-'
         # 从字典将数据渲染到表格中
@@ -369,9 +368,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             resDict = {}
             for searchKeyWord in searchContentList:
                 for var in self.gameValueFileContent:
-                    if (searchKeyWord
-                            in var) or (searchKeyWord
-                                        in self.gameValueFileContent[var]['desc']):
+                    if (searchKeyWord in var) or (searchKeyWord in self.gameValueFileContent[var]['desc']):
                         resDict[var] = self.gameValueFileContent[var]
             # 清空表格
             self.basicTab_tableWidget.clearContents()
@@ -423,9 +420,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 "矿机",
                 "积分",
             ])
-        elif select_1 == '':
-            self.basicTab_selectComboBox_2.clear()
-            self.basicTab_selectComboBox_2.currentText = ''
+        
 
     def selectBasicVar(self):
         select = self.basicTab_selectComboBox_2.currentText()
@@ -511,16 +506,14 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.logger.info(f'撤回修改变量{var}')
 
     def resetRecord(self):
-        choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复',
-                                         QMessageBox.Ok | QMessageBox.Cancel)
-        if choose == QMessageBox.Ok:
+        choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复',QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Cancel)
+        if choose == QMessageBox.StandardButton.Ok:
             # 获取当前表格中显示的所有变量
             currentTableVars = self.tableWidgetManager.getCurrentVars()
             for var in self.listWidgetManager.varList:
                 self.gameValueFileContent[var]['modify'] = ''
                 if var in currentTableVars:
-                    self.basicTab_tableWidget.item(currentTableVars.index(var),
-                                                   4).setText('')
+                    self.basicTab_tableWidget.item(currentTableVars.index(var), 4).setText('')
 
             self.listWidgetManager.clear()
             self.logger.info('重置修改记录')
@@ -556,11 +549,12 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.logger.info(f'保存修改后的文件到{path}')
         else:
             pass
-    
+
     def applyFile(self):
-        choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.Ok, QMessageBox.Cancel)
-        if choose == QMessageBox.Ok:
-            path = os.path.join(self.gamePath,"res/" 'game-values.json')
+        choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Cancel)
+        if choose == QMessageBox.StandardButton.Ok:
+            path = os.path.join(self.gamePath, "res/"
+                                'game-values.json')
             if path != '':
                 outputDict = self.gameValueFileContent.copy()
                 modifyVars = self.listWidgetManager.varList

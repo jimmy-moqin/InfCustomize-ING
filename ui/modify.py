@@ -107,7 +107,7 @@ class Ui_ModifyWindow(object):
         self.basicTab_tableWidget.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
         self.basicTab_tableWidget.setHorizontalHeaderItem(4, item)
-        self.basicTab_tableWidget.horizontalHeader().setVisible(False)
+        self.basicTab_tableWidget.horizontalHeader().setVisible(True)
         self.basicTab_tableWidget.horizontalHeader().setDefaultSectionSize(140)
         self.basicTab_tableWidget.verticalHeader().setDefaultSectionSize(45)
         self.basicTab_tableWidget.verticalHeader().setMinimumSectionSize(30)
@@ -498,7 +498,7 @@ class Ui_ModifyWindow(object):
         self.menubar.addAction(self.menu_2.menuAction())
 
         self.retranslateUi(ModifyWindow)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(ModifyWindow)
 
     def retranslateUi(self, ModifyWindow):
