@@ -1,0 +1,3002 @@
+{
+  "AIR": {
+    "prices": [
+      20,
+      30,
+      45,
+      70,
+      125,
+      175,
+      290,
+      455,
+      780,
+      1340
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-air-base",
+          "x": 22,
+          "y": 26,
+          "w": 84,
+          "h": 76,
+          "rs": 128
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-air-shadow",
+          "x": 44,
+          "y": 4,
+          "w": 80,
+          "h": 96,
+          "rs": 128
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-air-weapon",
+          "x": 46,
+          "y": 48,
+          "w": 36,
+          "h": 44,
+          "ox": 18,
+          "oy": 20,
+          "rs": 128
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "HEAVY_WEAPONS",
+        "textures": [
+          {
+            "alias": "tower-air-weapon-heavy",
+            "x": 46,
+            "y": 48,
+            "w": 36,
+            "h": 48,
+            "ox": 18,
+            "oy": 20,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "FAST_MECHANISM",
+        "textures": [
+          {
+            "alias": "tower-air-extra-1",
+            "x": 22,
+            "y": 52,
+            "w": 25,
+            "h": 31,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "FOUNDATION",
+        "textures": [
+          {
+            "alias": "tower-air-extra-2",
+            "x": 83,
+            "y": 42,
+            "w": 23,
+            "h": 34,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-air-extra-special-a",
+            "x": 33,
+            "y": 86,
+            "w": 28,
+            "h": 18,
+            "rs": 128
+          },
+          {
+            "alias": "tower-air-extra-special-b",
+            "x": 68,
+            "y": 24,
+            "w": 28,
+            "h": 16,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-air-extra-ultimate",
+            "x": 35,
+            "y": 34,
+            "w": 58,
+            "h": 60,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-air-extra-powerful-a",
+            "x": 24,
+            "y": 17,
+            "w": 39,
+            "h": 31,
+            "rs": 128
+          },
+          {
+            "alias": "tower-air-extra-powerful-b",
+            "x": 66,
+            "y": 79,
+            "w": 39,
+            "h": 31,
+            "rs": 128
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_AIR_RANGE"
+        ],
+        "values": [
+          3.5,
+          3.7,
+          3.95,
+          4.2,
+          4.5,
+          4.8,
+          5.05,
+          5.3,
+          5.55,
+          5.8,
+          6
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_AIR_DAMAGE"
+        ],
+        "values": [
+          4.2,
+          6.6,
+          10.2,
+          16,
+          24.7,
+          37.5,
+          65,
+          93.5,
+          142,
+          214,
+          332
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_AIR_ATTACK_SPEED"
+        ],
+        "values": [
+          1.8,
+          1.9,
+          2,
+          2.1,
+          2.2,
+          2.3,
+          2.4,
+          2.5,
+          2.6,
+          2.7,
+          2.8
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_AIR_ROTATION_SPEED"
+        ],
+        "values": [
+          75,
+          80,
+          85,
+          90,
+          95,
+          100,
+          105,
+          110,
+          115,
+          120,
+          125
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_AIR_PROJECTILE_SPEED"
+        ],
+        "values": [
+          2.2,
+          2.3,
+          2.4,
+          2.55,
+          2.7,
+          2.9,
+          2.9,
+          3.1,
+          3.3,
+          3.6,
+          3.9
+        ],
+        "max": 16
+      },
+      "U_BURN_CHANCE": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_AIR_BURN_CHANCE"
+        ],
+        "startValue": 5,
+        "valueDelta":  0.2,
+        "max": 100
+      },
+      "U_BURNING_TIME": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_AIR_BURNING_TIME"
+        ],
+        "startValue": 15,
+        "valueDelta":  0.35
+      }
+    }
+  },
+  "BASIC": {
+    "prices": [
+      20,
+      26,
+      42,
+      61,
+      90,
+      150,
+      250,
+      420,
+      690,
+      1100
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-basic-base",
+          "x": 22,
+          "y": 22,
+          "w": 84,
+          "h": 84,
+          "rs": 128
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-basic-shadow",
+          "x": 25,
+          "y": 4,
+          "w": 99,
+          "h": 99,
+          "rs": 128
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-basic-weapon",
+          "x": 46,
+          "y": 46,
+          "w": 36,
+          "h": 48,
+          "ox": 18,
+          "oy": 18,
+          "rs": 128
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "DOUBLE_GUN",
+        "textures": [
+          {
+            "alias": "tower-basic-weapon-double",
+            "x": 46,
+            "y": 46,
+            "w": 36,
+            "h": 48,
+            "ox": 18,
+            "oy": 18,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "LARGE_CALIBER",
+        "textures": [
+          {
+            "alias": "tower-basic-extra-1-a",
+            "x": 20,
+            "y": 44,
+            "w": 15,
+            "h": 40,
+            "rs": 128
+          },
+          {
+            "alias": "tower-basic-extra-1-b",
+            "x": 96,
+            "y": 41,
+            "w": 12,
+            "h": 43,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "FOUNDATION",
+        "textures": [
+          {
+            "alias": "tower-basic-extra-2-a",
+            "x": 44,
+            "y": 20,
+            "w": 43,
+            "h": 12,
+            "rs": 128
+          },
+          {
+            "alias": "tower-basic-extra-2-b",
+            "x": 44,
+            "y": 93,
+            "w": 40,
+            "h": 15,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-basic-extra-special-a",
+            "x": 20,
+            "y": 84,
+            "w": 24,
+            "h": 24,
+            "rs": 128
+          },
+          {
+            "alias": "tower-basic-extra-special-b",
+            "x": 86,
+            "y": 20,
+            "w": 22,
+            "h": 22,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-basic-extra-ultimate",
+            "x": 32,
+            "y": 32,
+            "w": 64,
+            "h": 64,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-basic-extra-powerful-a",
+            "x": 13,
+            "y": 13,
+            "w": 35,
+            "h": 35,
+            "rs": 128
+          },
+          {
+            "alias": "tower-basic-extra-powerful-b",
+            "x": 78,
+            "y": 79,
+            "w": 37,
+            "h": 36,
+            "rs": 128
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_BASIC_RANGE"
+        ],
+        "values": [
+          2,
+          2.2,
+          2.3,
+          2.3,
+          2.5,
+          2.5,
+          2.6,
+          2.7,
+          2.7,
+          2.9,
+          3
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_BASIC_DAMAGE"
+        ],
+        "values": [
+          7.5,
+          9.4,
+          11.8,
+          14.5,
+          18,
+          23,
+          27,
+          33.5,
+          41,
+          49,
+          57
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_BASIC_ATTACK_SPEED"
+        ],
+        "values": [
+          1.25,
+          1.4,
+          1.4,
+          1.55,
+          1.55,
+          1.7,
+          1.7,
+          1.95,
+          2.05,
+          2.05,
+          2.3
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_BASIC_ROTATION_SPEED"
+        ],
+        "values": [
+          90,
+          90,
+          110,
+          120,
+          120,
+          135,
+          145,
+          145,
+          170,
+          180,
+          180
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_BASIC_PROJECTILE_SPEED"
+        ],
+        "values": [
+          2.8,
+          3.0,
+          3.2,
+          3.3,
+          3.5,
+          3.5,
+          3.7,
+          3.8,
+          3.9,
+          4.0,
+          4.2
+        ],
+        "max": 16
+      },
+      "U_DAMAGE_MULTIPLY": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_BASIC_DAMAGE_MULTIPLIER"
+        ],
+        "startValue": 100,
+        "valueDelta":  4
+      }
+    }
+  },
+  "BLAST": {
+    "prices": [
+      34,
+      65,
+      115,
+      203,
+      338,
+      560,
+      950,
+      1300,
+      2100,
+      3400
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-blast-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-blast-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-blast-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "HEAVY_SHELL",
+        "textures": [
+          {
+            "alias": "tower-blast-weapon-heavy"
+          }
+        ]
+      },
+      {
+        "name": "FAST_MECHANISM",
+        "textures": [
+          {
+            "alias": "tower-blast-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "SONIC_WAVE",
+        "textures": [
+          {
+            "alias": "tower-blast-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-blast-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-blast-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-blast-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_BLAST_RANGE"
+        ],
+        "values": [
+          1.65,
+          1.65,
+          1.65,
+          1.65,
+          1.65,
+          1.65,
+          1.8,
+          1.8,
+          1.8,
+          1.8,
+          1.8
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_BLAST_DAMAGE"
+        ],
+        "values": [
+          27,
+          38,
+          49.6,
+          66.5,
+          90,
+          120,
+          160,
+          210,
+          300,
+          390,
+          540
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_BLAST_ATTACK_SPEED"
+        ],
+        "values": [
+          0.35,
+          0.38,
+          0.43,
+          0.5,
+          0.56,
+          0.56,
+          0.56,
+          0.63,
+          0.7,
+          0.8,
+          0.87
+        ]
+      },
+      "STUN_CHANCE": {
+        "gvMultipliers": [
+          "TOWER_BLAST_STUN_CHANCE"
+        ],
+        "startValue": 10,
+        "valueDelta":  0.8,
+        "max": 75
+      },
+      "U_STUN_DURATION": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_BLAST_STUN_DURATION"
+        ],
+        "startValue": 1.5,
+        "valueDelta":  0.065
+      }
+    }
+  },
+  "CANNON": {
+    "prices": [
+      42,
+      63,
+      115,
+      210,
+      300,
+      420,
+      850,
+      1200,
+      1950,
+      3000
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-cannon-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-cannon-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-cannon-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "SHRAPNEL",
+        "textures": [
+          {
+            "alias": "tower-cannon-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "LONG_BARREL",
+        "textures": [
+          {
+            "alias": "tower-cannon-weapon-long"
+          }
+        ]
+      },
+      {
+        "name": "FOUNDATION",
+        "textures": [
+          {
+            "alias": "tower-cannon-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-cannon-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-cannon-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-cannon-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_CANNON_RANGE"
+        ],
+        "values": [
+          1.7,
+          1.9,
+          2,
+          2.15,
+          2.15,
+          2.3,
+          2.45,
+          2.6,
+          2.9,
+          3.2,
+          3.2
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_CANNON_DAMAGE"
+        ],
+        "values": [
+          14,
+          22.7,
+          30.2,
+          39.8,
+          52.9,
+          68,
+          93.7,
+          123,
+          155,
+          204,
+          246
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_CANNON_ATTACK_SPEED"
+        ],
+        "values": [
+          0.6,
+          0.7,
+          0.7,
+          0.85,
+          1,
+          1.1,
+          1.1,
+          1.25,
+          1.35,
+          1.35,
+          1.4
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_CANNON_ROTATION_SPEED"
+        ],
+        "values": [
+          40,
+          50,
+          60,
+          70,
+          80,
+          80,
+          90,
+          100,
+          100,
+          110,
+          120
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_CANNON_PROJECTILE_SPEED"
+        ],
+        "values": [
+          2.2,
+          2.4,
+          2.6,
+          2.6,
+          2.7,
+          2.9,
+          3.0,
+          3.1,
+          3.2,
+          3.2,
+          3.2
+        ],
+        "max": 16
+      },
+      "U_EXPLOSION_RANGE": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_CANNON_EXPLOSION_RANGE"
+        ],
+        "startValue": 0.6,
+        "valueDelta":  0.03,
+        "max": 2.5
+      }
+    }
+  },
+  "FLAMETHROWER": {
+    "prices": [
+      42,
+      58,
+      115,
+      165,
+      245,
+      430,
+      580,
+      880,
+      1650,
+      2600
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-flamethrower-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-flamethrower-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-flamethrower-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "PLASMA_IGNITION",
+        "textures": [
+          {
+            "alias": "tower-flamethrower-weapon-plasma"
+          }
+        ]
+      },
+      {
+        "name": "NAPALM",
+        "textures": [
+          {
+            "alias": "tower-flamethrower-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "COLD_FIRE",
+        "textures": [
+          {
+            "alias": "tower-flamethrower-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-flamethrower-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-flamethrower-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-flamethrower-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_FLAMETHROWER_RANGE"
+        ],
+        "values": [
+          2.25,
+          2.35,
+          2.35,
+          2.45,
+          2.5,
+          2.65,
+          2.65,
+          2.75,
+          2.85,
+          2.85,
+          3
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_FLAMETHROWER_DAMAGE"
+        ],
+        "values": [
+          7.5,
+          11.2,
+          17.5,
+          22.5,
+          32.5,
+          47.5,
+          67.5,
+          96.2,
+          143,
+          212,
+          312
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_FLAMETHROWER_ROTATION_SPEED"
+        ],
+        "values": [
+          45,
+          47,
+          50,
+          55,
+          55,
+          60,
+          65,
+          65,
+          70,
+          70,
+          70
+        ]
+      },
+      "U_BURNING_TIME": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_FLAMETHROWER_BURNING_TIME"
+        ],
+        "startValue": 3,
+        "valueDelta":  0.2
+      }
+    }
+  },
+  "FREEZING": {
+    "prices": [
+      42,
+      70,
+      110,
+      170,
+      270,
+      420,
+      650,
+      1050,
+      1700,
+      2700
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-freezing-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-freezing-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-freezing-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "COLD_EVAPORATION",
+        "textures": [
+          {
+            "alias": "tower-freezing-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "SLOW_FREEZING",
+        "textures": [
+          {
+            "alias": "tower-freezing-weapon-twisted"
+          }
+        ]
+      },
+      {
+        "name": "MONITORING_SYSTEM",
+        "textures": [
+          {
+            "alias": "tower-freezing-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-freezing-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-freezing-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-freezing-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_FREEZING_RANGE"
+        ],
+        "values": [
+          2,
+          2.125,
+          2.25,
+          2.4,
+          2.4,
+          2.55,
+          2.65,
+          2.8,
+          3,
+          3,
+          3.2
+        ]
+      },
+      "FREEZE_PERCENT": {
+        "gvMultipliers": [
+          "TOWER_FREEZING_FREEZE_PERCENT"
+        ],
+        "values": [
+          15,
+          18,
+          20,
+          23,
+          25,
+          27,
+          29,
+          31,
+          33,
+          35,
+          38
+        ],
+        "max": 65
+      },
+      "FREEZE_SPEED": {
+        "gvMultipliers": [
+          "TOWER_FREEZING_FREEZE_SPEED"
+        ],
+        "values": [
+          12,
+          14,
+          16,
+          18,
+          20,
+          22,
+          24,
+          26,
+          28,
+          30,
+          32
+        ]
+      },
+      "U_POISON_DURATION_BONUS": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_FREEZING_POISON_DURATION_BONUS"
+        ],
+        "startValue": 20,
+        "valueDelta":  2.5
+      },
+      "U_CHAIN_LIGHTNING_BONUS_LENGTH": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_FREEZING_CHAIN_LIGHTNING_LENGTH_BONUS"
+        ],
+        "startValue": 15,
+        "valueDelta":  2
+      }
+    }
+  },
+  "LASER": {
+    "prices": [
+      36,
+      64,
+      120,
+      160,
+      260,
+      410,
+      600,
+      900,
+      1580,
+      2400
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-laser-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-laser-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-laser-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "HIGH_FREQUENCY",
+        "textures": [
+          {
+            "alias": "tower-laser-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "MIRRORS_SYSTEM",
+        "textures": [
+          {
+            "alias": "tower-laser-weapon-mirrors"
+          }
+        ]
+      },
+      {
+        "name": "LARGE_BATTERIES",
+        "textures": [
+          {
+            "alias": "tower-laser-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-laser-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-laser-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-laser-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_LASER_RANGE"
+        ],
+        "values": [
+          2.75,
+          2.95,
+          2.95,
+          3.2,
+          3.45,
+          3.55,
+          3.55,
+          3.8,
+          4.1,
+          4.4,
+          4.75
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_LASER_DAMAGE"
+        ],
+        "values": [
+          145,
+          220,
+          341,
+          451,
+          627,
+          869,
+          1155,
+          1540,
+          2090,
+          2750,
+          3740
+        ]
+      },
+      "CHARGING_SPEED": {
+        "gvMultipliers": [
+          "TOWER_LASER_CHARGING_SPEED"
+        ],
+        "values": [
+          20,
+          22,
+          25,
+          25,
+          30,
+          32,
+          34,
+          36,
+          36,
+          40,
+          40
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_LASER_ROTATION_SPEED"
+        ],
+        "values": [
+          40,
+          40,
+          48,
+          48,
+          56,
+          56,
+          64,
+          64,
+          72,
+          72,
+          80
+        ]
+      },
+      "U_BATTERIES_CAPACITY": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_LASER_BATTERIES_CAPACITY"
+        ],
+        "startValue": 2.5,
+        "valueDelta":  0.1
+      }
+    }
+  },
+  "MINIGUN": {
+    "prices": [
+      42,
+      60,
+      115,
+      175,
+      280,
+      450,
+      740,
+      1300,
+      2000,
+      3200
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-minigun-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-minigun-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-minigun-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "HEAVY_WEAPONS",
+        "textures": [
+          {
+            "alias": "tower-minigun-weapon-heavy"
+          }
+        ]
+      },
+      {
+        "name": "HEAVY_MECHANISM",
+        "textures": [
+          {
+            "alias": "tower-minigun-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "FOUNDATION",
+        "textures": [
+          {
+            "alias": "tower-minigun-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-minigun-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-minigun-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-minigun-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_MINIGUN_RANGE"
+        ],
+        "values": [
+          3.5,
+          3.65,
+          3.8,
+          4,
+          4,
+          4,
+          4.2,
+          4.5,
+          4.8,
+          5.15,
+          5.5
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_MINIGUN_DAMAGE"
+        ],
+        "values": [
+          13.6,
+          17.6,
+          25.2,
+          30.7,
+          43.8,
+          55.9,
+          77,
+          99,
+          133,
+          185,
+          232
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_MINIGUN_ATTACK_SPEED"
+        ],
+        "values": [
+          4.5,
+          4.7,
+          4.95,
+          4.95,
+          5.2,
+          5.8,
+          6.3,
+          6.7,
+          7.8,
+          8.2,
+          9.1
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_MINIGUN_ROTATION_SPEED"
+        ],
+        "values": [
+          40,
+          43,
+          43,
+          48,
+          50,
+          55,
+          55,
+          57,
+          60,
+          60,
+          60
+        ]
+      },
+      "U_ACCELERATION": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_MINIGUN_ACCELERATION"
+        ],
+        "startValue": 15,
+        "valueDelta":  0.9
+      }
+    }
+  },
+  "MISSILE": {
+    "prices": [
+      83,
+      138,
+      210,
+      330,
+      560,
+      810,
+      1250,
+      1950,
+      3300,
+      5500
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-missile-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-missile-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-missile-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "VERTICAL_LAUNCH",
+        "textures": [
+          {
+            "alias": "tower-missile-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "COMPACT_MISSILES",
+        "textures": [
+          {
+            "alias": "tower-missile-weapon-triple"
+          }
+        ]
+      },
+      {
+        "name": "ANTI_AIR_SYSTEM",
+        "textures": [
+          {
+            "alias": "tower-missile-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-missile-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-missile-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-missile-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_MISSILE_RANGE"
+        ],
+        "values": [
+          4.7,
+          5,
+          5,
+          5.6,
+          5.7,
+          6.2,
+          6.2,
+          6.8,
+          7.1,
+          7.3,
+          7.5
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_MISSILE_DAMAGE"
+        ],
+        "values": [
+          50,
+          70,
+          100,
+          134,
+          172,
+          223,
+          280,
+          345,
+          424,
+          518,
+          640
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_MISSILE_ATTACK_SPEED"
+        ],
+        "values": [
+          0.28,
+          0.31,
+          0.35,
+          0.35,
+          0.4,
+          0.4,
+          0.46,
+          0.49,
+          0.49,
+          0.55,
+          0.58
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_MISSILE_ROTATION_SPEED"
+        ],
+        "values": [
+          45,
+          50,
+          55,
+          60,
+          65,
+          70,
+          75,
+          80,
+          85,
+          90,
+          90
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_MISSILE_PROJECTILE_SPEED"
+        ],
+        "values": [
+          1.8,
+          1.85,
+          1.95,
+          2.1,
+          2.1,
+          2.2,
+          2.3,
+          2.3,
+          2.4,
+          2.4,
+          2.5
+        ],
+        "max": 16
+      },
+      "U_EXPLOSION_RANGE": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_MISSILE_EXPLOSION_RANGE"
+        ],
+        "startValue": 0.7,
+        "valueDelta":  0.04,
+        "max": 2.5
+      },
+      "U_LRM_AIM_SPEED": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_MISSILE_LRM_AIM_SPEED"
+        ],
+        "startValue": 12,
+        "valueDelta":  0.4
+      }
+    }
+  },
+  "MULTISHOT": {
+    "prices": [
+      5,
+      8,
+      12,
+      17,
+      28,
+      46,
+      66,
+      115,
+      175,
+      265
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-multishot-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-multishot-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-multishot-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "PENETRATING_BULLETS",
+        "textures": [
+          {
+            "alias": "tower-multishot-weapon-penetrating"
+          }
+        ]
+      },
+      {
+        "name": "SECOND_AXIS",
+        "textures": [
+          {
+            "alias": "tower-multishot-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "COMPACT_WEAPONS",
+        "textures": [
+          {
+            "alias": "tower-multishot-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-multishot-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-multishot-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-multishot-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_MULTISHOT_RANGE"
+        ],
+        "values": [
+          3,
+          8.2,
+          8.3,
+          8.45,
+          8.45,
+          8.65,
+          8.85,
+          8.1,
+          8.1,
+          8.35,
+          8.5
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_MULTISHOT_DAMAGE"
+        ],
+        "values": [
+          55,
+          72,
+          96,
+          130,
+          170,
+          211,
+          292,
+          400,
+          512,
+          640,
+          843
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_MULTISHOT_ATTACK_SPEED"
+        ],
+        "values": [
+          3,
+          3.1,
+          3.25,
+          3.25,
+          3.4,
+          3.55,
+          3.55,
+          3.7,
+          3.8,
+          3.8,
+          3.9
+        ],
+        "pwrFactor": 0.75
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_MULTISHOT_ROTATION_SPEED"
+        ],
+        "values": [
+          50,
+          55,
+          60,
+          68,
+          70,
+          70,
+          74,
+          80,
+          85,
+          90,
+          90
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_MULTISHOT_PROJECTILE_SPEED"
+        ],
+        "values": [
+          2,
+          2.2,
+          2.4,
+          2.6,
+          2.6,
+          2.8,
+          3,
+          3,
+          3.25,
+          3.4,
+          3.5
+        ],
+        "max": 16
+      },
+      "U_PROJECTILE_COUNT": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_MULTISHOT_PROJECTILE_COUNT"
+        ],
+        "startValue": 5,
+        "valueDelta":  0.14
+      },
+      "U_SHOOT_ANGLE": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_MULTISHOT_SHOOT_ANGLE"
+        ],
+        "startValue": 65,
+        "valueDelta":  1
+      }
+    }
+  },
+  "SNIPER": {
+    "prices": [
+      42,
+      72,
+      110,
+      176,
+      380,
+      540,
+      760,
+      1140,
+      1800,
+      3000
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-sniper-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-sniper-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-sniper-weapon"
+        }
+      ],
+      "weapon-long-penetrating": [
+        {
+          "alias": "tower-sniper-weapon-long-penetrating"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "PENETRATING_BULLETS",
+        "textures": [
+          {
+            "alias": "tower-sniper-weapon-penetrating"
+          }
+        ]
+      },
+      {
+        "name": "HEAVY_WEAPONS",
+        "textures": [
+          {
+            "alias": "tower-sniper-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "LONG_BARREL",
+        "textures": [
+          {
+            "alias": "tower-sniper-weapon-long"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-sniper-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-sniper-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-sniper-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_SNIPER_RANGE"
+        ],
+        "values": [
+          4.5,
+          4.9,
+          5.3,
+          5.3,
+          5.7,
+          6.1,
+          6.1,
+          6.5,
+          6.9,
+          7.3,
+          7.8
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_SNIPER_DAMAGE"
+        ],
+        "values": [
+          46,
+          64,
+          84,
+          128,
+          180,
+          250,
+          310,
+          430,
+          560,
+          700,
+          920
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_SNIPER_ATTACK_SPEED"
+        ],
+        "values": [
+          0.28,
+          0.32,
+          0.38,
+          0.38,
+          0.44,
+          0.5,
+          0.53,
+          0.53,
+          0.58,
+          0.62,
+          0.65
+        ],
+        "pwrFactor": 0.8
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_SNIPER_ROTATION_SPEED"
+        ],
+        "values": [
+          50,
+          55,
+          60,
+          64,
+          73,
+          73,
+          81,
+          86,
+          86,
+          86,
+          90
+        ]
+      },
+      "AIM_SPEED": {
+        "gvMultipliers": [
+          "TOWER_SNIPER_AIM_SPEED"
+        ],
+        "values": [
+          90,
+          100,
+          105,
+          110,
+          120,
+          135,
+          135,
+          150,
+          170,
+          180,
+          200
+        ]
+      },
+      "U_CRIT_CHANCE": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_SNIPER_CRIT_CHANCE"
+        ],
+        "startValue": 15,
+        "valueDelta":  1.15,
+        "max": 90
+      },
+      "U_CRIT_MULTIPLIER": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_SNIPER_CRIT_MULTIPLIER"
+        ],
+        "startValue": 150,
+        "valueDelta":  5
+      }
+    }
+  },
+  "SPLASH": {
+    "prices": [
+      51,
+      79,
+      125,
+      203,
+      338,
+      578,
+      940,
+      1820,
+      2600,
+      3600
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-splash-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-splash-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-splash-weapon-center"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "PENETRATING_BULLETS",
+        "textures": [
+          {
+            "alias": "tower-splash-weapon-thin"
+          }
+        ]
+      },
+      {
+        "name": "FAST_MECHANISM",
+        "textures": [
+          {
+            "alias": "tower-splash-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "FAST_BULLETS",
+        "textures": [
+          {
+            "alias": "tower-splash-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-splash-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-splash-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-splash-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_SPLASH_RANGE"
+        ],
+        "values": [
+          2,
+          2.125,
+          2.25,
+          2.35,
+          2.45,
+          2.45,
+          2.6,
+          2.7,
+          2.85,
+          2.85,
+          3
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_SPLASH_DAMAGE"
+        ],
+        "values": [
+          11.9,
+          17.85,
+          22.9,
+          33.1,
+          45.9,
+          66.3,
+          89.2,
+          119.8,
+          158,
+          201,
+          324
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_SPLASH_ATTACK_SPEED"
+        ],
+        "values": [
+          0.9,
+          1,
+          1.11,
+          1.11,
+          1.24,
+          1.33,
+          1.42,
+          1.5,
+          1.58,
+          1.62,
+          1.68
+        ],
+        "pwrFactor": 0.5
+      },
+      "ACCURACY": {
+        "gvMultipliers": [
+          "TOWER_SPLASH_ACCURACY"
+        ],
+        "values": [
+          50,
+          50,
+          55,
+          60,
+          65,
+          70,
+          70,
+          75,
+          75,
+          80,
+          80
+        ],
+        "max": 120
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_SPLASH_PROJECTILE_SPEED"
+        ],
+        "values": [
+          1.5,
+          1.7,
+          1.9,
+          2,
+          2,
+          2.1,
+          2.1,
+          2.25,
+          2.4,
+          2.5,
+          2.7
+        ],
+        "max": 16
+      },
+      "U_PROJECTILE_COUNT": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_SPLASH_PROJECTILE_COUNT"
+        ],
+        "startValue": 6,
+        "valueDelta":  0.18,
+        "max": 20
+      }
+    }
+  },
+  "TESLA": {
+    "prices": [
+      54,
+      79,
+      140,
+      220,
+      300,
+      495,
+      750,
+      1090,
+      1800,
+      2500
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-tesla-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-tesla-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-tesla-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "HIGH_CURRENT",
+        "textures": [
+          {
+            "alias": "tower-tesla-weapon-high-current"
+          }
+        ]
+      },
+      {
+        "name": "LARGE_BATTERIES",
+        "textures": [
+          {
+            "alias": "tower-tesla-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "INCREASED_VOLTAGE",
+        "textures": [
+          {
+            "alias": "tower-tesla-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-tesla-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-tesla-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-tesla-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_TESLA_RANGE"
+        ],
+        "values": [
+          3.15,
+          3.15,
+          3.4,
+          3.7,
+          4.2,
+          4.2,
+          4.7,
+          4.7,
+          5.1,
+          5.1,
+          5.5
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_TESLA_DAMAGE"
+        ],
+        "values": [
+          8.4,
+          11.7,
+          15.1,
+          19.5,
+          25.7,
+          32.9,
+          38.8,
+          47.8,
+          59.5,
+          77.0,
+          100
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_TESLA_ATTACK_SPEED"
+        ],
+        "values": [
+          1.2,
+          1.32,
+          1.4,
+          1.48,
+          1.48,
+          1.56,
+          1.68,
+          1.68,
+          1.9,
+          2,
+          2.15
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_TESLA_ROTATION_SPEED"
+        ],
+        "values": [
+          60,
+          65,
+          80,
+          80,
+          85,
+          95,
+          95,
+          105,
+          110,
+          115,
+          120
+        ]
+      },
+      "CHAIN_LIGHTNING_DAMAGE": {
+        "gvMultipliers": [
+          "TOWER_TESLA_CHAIN_LIGHTNING_DAMAGE"
+        ],
+        "values": [
+          45,
+          48,
+          50,
+          53,
+          55,
+          58,
+          60,
+          63,
+          65,
+          68,
+          70
+        ],
+        "max": 95,
+        "pwrFactor": 0.4
+      },
+      "U_CHAIN_LIGHTNING_LENGTH": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_TESLA_CHAIN_LIGHTNING_LENGTH"
+        ],
+        "startValue": 4,
+        "valueDelta":  0.25
+      }
+    }
+  },
+  "VENOM": {
+    "prices": [
+      40,
+      65,
+      90,
+      140,
+      260,
+      440,
+      630,
+      920,
+      1750,
+      2600
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-venom-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-venom-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-venom-weapon"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "CONCENTRATED_POISON",
+        "textures": [
+          {
+            "alias": "tower-venom-weapon-concentrated"
+          }
+        ]
+      },
+      {
+        "name": "HARD_SHELLS",
+        "textures": [
+          {
+            "alias": "tower-venom-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "FAST_SHELLS",
+        "textures": [
+          {
+            "alias": "tower-venom-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-venom-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-venom-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-venom-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_VENOM_RANGE"
+        ],
+        "values": [
+          2.125,
+          2.25,
+          2.25,
+          2.4,
+          2.5,
+          2.65,
+          2.75,
+          2.9,
+          2.9,
+          3.1,
+          3.3
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_VENOM_DAMAGE"
+        ],
+        "values": [
+          14.6,
+          18.1,
+          22.3,
+          28.8,
+          36.9,
+          47.5,
+          63.3,
+          82.2,
+          105,
+          135,
+          170
+        ]
+      },
+      "ATTACK_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ATTACK_SPEED",
+          "TOWER_VENOM_ATTACK_SPEED"
+        ],
+        "values": [
+          0.45,
+          0.48,
+          0.54,
+          0.54,
+          0.62,
+          0.7,
+          0.7,
+          0.8,
+          0.92,
+          1.05,
+          1.15
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_VENOM_ROTATION_SPEED"
+        ],
+        "values": [
+          75,
+          80,
+          80,
+          90,
+          95,
+          100,
+          105,
+          105,
+          115,
+          120,
+          120
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_VENOM_PROJECTILE_SPEED"
+        ],
+        "values": [
+          1.25,
+          1.25,
+          1.35,
+          1.45,
+          1.6,
+          1.6,
+          1.75,
+          1.9,
+          2.1,
+          2.3,
+          2.55
+        ],
+        "max": 16
+      },
+      "U_POISON_DURATION": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_VENOM_POISON_DURATION"
+        ],
+        "startValue": 5,
+        "valueDelta":  0.3
+      }
+    }
+  },
+  "GAUSS": {
+    "prices": [
+      220,
+      300,
+      480,
+      700,
+      1300,
+      2200,
+      3200,
+      4600,
+      7200,
+      12000
+    ],
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-gauss-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-gauss-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-gauss-weapon",
+          "x": 50,
+          "y": 44,
+          "w": 28,
+          "h": 105,
+          "ox": 14,
+          "oy": 20,
+          "rs": 128
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "NANOPARTICLES",
+        "textures": [
+          {
+            "alias": "tower-gauss-weapon-long",
+            "x": 50,
+            "y": 44,
+            "ox": 14,
+            "oy": 20,
+            "w": 28,
+            "h": 105,
+            "rs": 128
+          }
+        ]
+      },
+      {
+        "name": "SELF_IMPROVEMENT",
+        "textures": [
+          {
+            "alias": "tower-gauss-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "SUPERCONDUCTORS",
+        "textures": [
+          {
+            "alias": "tower-gauss-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-gauss-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-gauss-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-gauss-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_GAUSS_DAMAGE"
+        ],
+        "values": [
+          2200.0,
+          3600.0,
+          5600.0,
+          11000.0,
+          18000.0,
+          32000.0,
+          60000.0,
+          110000.0,
+          200000.0,
+          350000.0,
+          600000.0
+        ]
+      },
+      "ROTATION_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_ROTATION_SPEED",
+          "TOWER_GAUSS_ROTATION_SPEED"
+        ],
+        "values": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14
+        ]
+      },
+      "RESOURCE_CONSUMPTION": {
+        "gvMultipliers": [
+          "TOWER_GAUSS_RESOURCE_CONSUMPTION"
+        ],
+        "rounding": "middle",
+        "values": [
+          8,
+          10,
+          11,
+          13,
+          15,
+          15,
+          17,
+          20,
+          23,
+          27,
+          32
+        ]
+      },
+      "CHARGING_SPEED": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_GAUSS_CHARGING_SPEED"
+        ],
+        "startValue": 9,
+        "valueDelta":  0.09
+      }
+    }
+  },
+  "CRUSHER": {
+    "prices": [
+      42,
+      63,
+      115,
+      210,
+      300,
+      420,
+      850,
+      1200,
+      1950,
+      3000
+    ],
+    "upgradePriceMultiplier": 1.2,
+    "textures": {
+      "base": [
+        {
+          "alias": "tower-crusher-base"
+        }
+      ],
+      "base-shadow": [
+        {
+          "alias": "tower-crusher-shadow"
+        }
+      ],
+      "weapon": [
+        {
+          "alias": "tower-crusher-weapon-bottom"
+        },
+        {
+          "alias": "tower-crusher-weapon-top"
+        }
+      ]
+    },
+    "abilities": [
+      {
+        "name": "HEAVY_VICE",
+        "textures": [
+          {
+            "alias": "tower-crusher-weapon-bottom-thorns"
+          },
+          {
+            "alias": "tower-crusher-weapon-top-thorns"
+          }
+        ]
+      },
+      {
+        "name": "INCREASED_CAPACITY",
+        "textures": [
+          {
+            "alias": "tower-crusher-extra-2"
+          }
+        ]
+      },
+      {
+        "name": "CAREFUL_PROCESSING",
+        "textures": [
+          {
+            "alias": "tower-crusher-extra-1"
+          }
+        ]
+      },
+      {
+        "name": "SPECIAL",
+        "textures": [
+          {
+            "alias": "tower-crusher-extra-special"
+          }
+        ]
+      },
+      {
+        "name": "ULTIMATE",
+        "textures": [
+          {
+            "alias": "tower-crusher-extra-ultimate"
+          }
+        ]
+      },
+      {
+        "name": "POWERFUL",
+        "textures": [
+          {
+            "alias": "tower-crusher-extra-powerful"
+          }
+        ]
+      }
+    ],
+    "stats": {
+      "RANGE": {
+        "gvMultipliers": [
+          "TOWERS_RANGE",
+          "TOWER_CRUSHER_RANGE"
+        ],
+        "values": [
+          1.2,
+          1.2,
+          1.3,
+          1.3,
+          1.4,
+          1.4,
+          1.4,
+          1.5,
+          1.5,
+          1.6,
+          1.7
+        ]
+      },
+      "DAMAGE": {
+        "gvMultipliers": [
+          "TOWERS_DAMAGE",
+          "TOWER_CRUSHER_DAMAGE"
+        ],
+        "values": [
+          109,
+          136,
+          167,
+          216,
+          267,
+          360,
+          467,
+          611,
+          792,
+          1000,
+          1280
+        ]
+      },
+      "PROJECTILE_SPEED": {
+        "gvMultipliers": [
+          "TOWERS_PROJECTILE_SPEED",
+          "TOWER_CRUSHER_PROJECTILE_SPEED"
+        ],
+        "values": [
+          1.2,
+          1.4,
+          1.5,
+          1.5,
+          1.6,
+          1.7,
+          1.7,
+          1.8,
+          1.9,
+          1.9,
+          2.0
+        ],
+        "max": 16
+      },
+      "DURATION": {
+        "gvMultipliers": [
+          "TOWER_CRUSHER_DURATION"
+        ],
+        "values": [
+          6.0,
+          6.5,
+          7.0,
+          7.0,
+          7.5,
+          8.0,
+          8.5,
+          9.0,
+          9.0,
+          9.5,
+          10.0
+        ]
+      },
+      "U_BONUS_EXPERIENCE": {
+        "unique":true,
+        "gvMultipliers": [
+          "TOWER_CRUSHER_BONUS_EXPERIENCE"
+        ],
+        "startValue": 30,
+        "valueDelta":  3
+      }
+    }
+  }
+}

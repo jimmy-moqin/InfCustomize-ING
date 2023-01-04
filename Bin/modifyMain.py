@@ -1,12 +1,10 @@
 import json
 import logging
 import os
-import pickle as pkl
-from typing import Any, Dict, List, Optional, Tuple, Union
 
-from PyQt5 import QtCore
-from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate,
-                             QMainWindow, QMessageBox, QTableWidgetItem)
+from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont
+from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate, QMainWindow, QMessageBox, QTableWidgetItem)
 from ui.modify import Ui_ModifyWindow
 
 
@@ -19,8 +17,7 @@ class logger(object):
         self.fh.setLevel(logging.DEBUG)
         self.ch = logging.StreamHandler()
         self.ch.setLevel(logging.DEBUG)
-        self.formatter = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
         self.fh.setFormatter(self.formatter)
         self.ch.setFormatter(self.formatter)
         self.logger.addHandler(self.fh)
@@ -163,6 +160,19 @@ class TableWidgetManager():
             i += 1
 
 
+class UniqueFont(QFont):
+    '''字体管理类'''
+
+    def __init__(self):
+        super(UniqueFont, self).__init__()
+
+    def Bold(self, size=10):
+        boldFont = QFont()
+        boldFont.setBold(True)
+        boldFont.setPointSize(size)
+        return boldFont
+
+
 class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
     def __init__(self):
@@ -175,6 +185,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.listWidgetManager = ListWidgetManager(self.basicTab_modifyRecordListWidget)
         # 实例化TableWidget管理类
         self.tableWidgetManager = TableWidgetManager(self.basicTab_tableWidget)
+        # 实例化字体管理类
+        self.uniqueFont = UniqueFont()
 
         # 获取当前路径
         self.currentPath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -182,6 +194,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 默认文件路径
         self.defaultFilePath = os.path.join(self.currentPath, 'default')
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
+        self.defaultTowerStatFile = os.path.join(self.defaultFilePath, 'tower-stats.json')
         #
 
         self.initMenu()
@@ -203,6 +216,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         for i in range(1, 6):
             self.tabWidget.setTabEnabled(i, False)
 
+        ############################## basicTab UI ##############################
+
         # 绑定按钮动作
         self.basicTab_searchBtn.clicked.connect(self.searchBasicVar)
         self.basicTab_selectBtn.clicked.connect(self.selectBasicVar)
@@ -219,8 +234,10 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.basicTab_tableWidget.cellChanged.connect(self.valueModify)
 
         # 设置表格头部自适应缩放
-        self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(
-            QHeaderView.ResizeMode.Stretch)
+        self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        # 隐藏列表头
         self.basicTab_tableWidget.verticalHeader().setHidden(True)
         # 设置表格自动换行
         self.basicTab_tableWidget.setWordWrap(True)
@@ -228,11 +245,40 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         for i in range(0, 4):
             self.basicTab_tableWidget.setItemDelegateForColumn(i, EmptyDelegate(self))
 
+        ############################## towerTab UI ##############################
+
+        # 绑定左侧Tag
+        self.towerTab_basicTag.clicked.connect(lambda: self.tagChange('basic'))
+        self.towerTab_sniperTag.clicked.connect(lambda: self.tagChange('sniper'))
+        self.towerTab_cannonTag.clicked.connect(lambda: self.tagChange('cannon'))
+        self.towerTab_freezingTag.clicked.connect(lambda: self.tagChange('freezing'))
+        self.towerTab_airTag.clicked.connect(lambda: self.tagChange('air'))
+        self.towerTab_splashTag.clicked.connect(lambda: self.tagChange('splash'))
+        self.towerTab_blastTag.clicked.connect(lambda: self.tagChange('blast'))
+        self.towerTab_multishotTag.clicked.connect(lambda: self.tagChange('multishot'))
+        self.towerTab_minigunTag.clicked.connect(lambda: self.tagChange('minigun'))
+        self.towerTab_venomTag.clicked.connect(lambda: self.tagChange('venom'))
+        self.towerTab_teslaTag.clicked.connect(lambda: self.tagChange('tesla'))
+        self.towerTab_missileTag.clicked.connect(lambda: self.tagChange('missile'))
+        self.towerTab_flameTag.clicked.connect(lambda: self.tagChange('flame'))
+        self.towerTab_laserTag.clicked.connect(lambda: self.tagChange('laser'))
+        self.towerTab_gaussTag.clicked.connect(lambda: self.tagChange('gauss'))
+        self.towerTab_crusherTag.clicked.connect(lambda: self.tagChange('crusher'))
+
+        self.towerTab_basicAttributeTable.verticalHeader().setHidden(True)
+        self.towerTab_basicAttributeTable.horizontalHeader().setHidden(False)
+        # 设置表格自动换行
+        self.towerTab_basicAttributeTable.setWordWrap(True)
+        # 设置表格第一列不可编辑
+        self.towerTab_basicAttributeTable.setItemDelegateForColumn(0, EmptyDelegate(self))
+
+    ################## Methods of Menu ##################
+
     def loadGamePath(self):
         '''载入游戏路径'''
         print('载入游戏路径')
-        self.gamePath = QFileDialog.getExistingDirectory(
-            self, "选取文件夹", "G:/SteamLibrary/steamapps/common/Infinitode 2") + '/'
+        self.gamePath = QFileDialog.getExistingDirectory(self, "选取文件夹",
+                                                         "G:/SteamLibrary/steamapps/common/Infinitode 2") + '/'
 
         # 获取路径下的文件夹
         gamePathList = os.listdir(self.gamePath)
@@ -256,18 +302,15 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 else:
                     self.logger.error('未找到文件 {}'.format(file))
                     QMessageBox.warning(
-                        self, '警告',
-                        "在当前游戏路径的 res 文件夹下未找到 {} 文件\n请重新选择游戏安装路径，或使用 '载入资源文件' 手动选择 res 文件夹"
-                        .format(file), QMessageBox.StandardButton.Yes)
+                        self, '警告', "在当前游戏路径的 res 文件夹下未找到 {} 文件\n请重新选择游戏安装路径，或使用 '载入资源文件' 手动选择 res 文件夹".format(file),
+                        QMessageBox.StandardButton.Yes)
                     break
             # 如果目标文件都存在，则载入文件路径
             else:
                 self.achievementsFile = os.path.join(self.resource, resourceFileList[0])
                 self.gameValueFile = os.path.join(self.resource, resourceFileList[1])
-                self.towerEnemyAttackMatrixFile = os.path.join(self.resource,
-                                                               resourceFileList[2])
-                self.towerEnemyDamageMatrixFile = os.path.join(self.resource,
-                                                               resourceFileList[3])
+                self.towerEnemyAttackMatrixFile = os.path.join(self.resource, resourceFileList[2])
+                self.towerEnemyDamageMatrixFile = os.path.join(self.resource, resourceFileList[3])
                 self.towerStatsFile = os.path.join(self.resource, resourceFileList[4])
                 self.logger.info('载入文件路径成功')
 
@@ -284,17 +327,15 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 如果不存在res文件夹
         else:
             self.logger.error('未找到res文件夹')
-            QMessageBox.warning(
-                self, '警告',
-                "在当前游戏路径 {} 未找到 res 文件夹\n请重新选择游戏安装路径，或使用 '载入资源文件' 手动选择 res 文件夹".format(
-                    self.gamePath), QMessageBox.StandardButton.Yes)
+            QMessageBox.warning(self, '警告',
+                                "在当前游戏路径 {} 未找到 res 文件夹\n请重新选择游戏安装路径，或使用 '载入资源文件' 手动选择 res 文件夹".format(self.gamePath),
+                                QMessageBox.StandardButton.Yes)
             return 0
 
     def loadResourceFile(self):
         '''载入资源文件'''
         print('载入资源文件')
-        self.resource = QFileDialog.getExistingDirectory(
-            self, "选取文件夹", "G:/SteamLibrary/steamapps/common/Infinitode 2")
+        self.resource = QFileDialog.getExistingDirectory(self, "选取文件夹", "G:/SteamLibrary/steamapps/common/Infinitode 2")
         # res文件夹下的目标文件
         resourceFileList = [
             "achievements.json",
@@ -310,18 +351,15 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             # 如果有不存在的目标文件，则弹出警告框
             else:
                 self.logger.error('未找到文件 {}'.format(file))
-                QMessageBox.warning(self, '警告',
-                                    "在当前资源路径的 res 文件夹下未找到 {} 文件\n请重新选择资源路径".format(file),
+                QMessageBox.warning(self, '警告', "在当前资源路径的 res 文件夹下未找到 {} 文件\n请重新选择资源路径".format(file),
                                     QMessageBox.StandardButton.Yes)
                 return 0
         # 如果目标文件都存在，则载入文件路径
         else:
             self.achievementsFile = os.path.join(self.resource, resourceFileList[0])
             self.gameValueFile = os.path.join(self.resource, resourceFileList[1])
-            self.towerEnemyAttackMatrixFile = os.path.join(self.resource,
-                                                           resourceFileList[2])
-            self.towerEnemyDamageMatrixFile = os.path.join(self.resource,
-                                                           resourceFileList[3])
+            self.towerEnemyAttackMatrixFile = os.path.join(self.resource, resourceFileList[2])
+            self.towerEnemyDamageMatrixFile = os.path.join(self.resource, resourceFileList[3])
             self.towerStatsFile = os.path.join(self.resource, resourceFileList[4])
             self.logger.info('载入文件路径成功')
 
@@ -334,6 +372,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.tabWidget.setCurrentIndex(0)
             # 解析基础变量文件
             self.gameValueFileParse()
+
+    ################## Methods of Tab Basic ##################
 
     def gameValueFileParse(self):
         '''解析基础变量文件'''
@@ -420,12 +460,10 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 "矿机",
                 "积分",
             ])
-        
 
     def selectBasicVar(self):
         select = self.basicTab_selectComboBox_2.currentText()
         selectKeywordDict = {
-            '': '',
             "基础塔": "BASIC",
             "狙击塔": "SNIPER",
             "加农炮": "CANNON",
@@ -506,7 +544,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.logger.info(f'撤回修改变量{var}')
 
     def resetRecord(self):
-        choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复',QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Cancel)
+        choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
+                                         QMessageBox.StandardButton.Cancel)
         if choose == QMessageBox.StandardButton.Ok:
             # 获取当前表格中显示的所有变量
             currentTableVars = self.tableWidgetManager.getCurrentVars()
@@ -551,7 +590,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             pass
 
     def applyFile(self):
-        choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.StandardButton.Ok, QMessageBox.StandardButton.Cancel)
+        choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
+                                     QMessageBox.StandardButton.Cancel)
         if choose == QMessageBox.StandardButton.Ok:
             path = os.path.join(self.gamePath, "res/"
                                 'game-values.json')
@@ -571,3 +611,78 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 pass
         else:
             pass
+
+    ################## Methods of Tab Tower ##################
+    def tagChange(self, towerName):
+        '''标签改变'''
+        tags = []
+        for tagObj in self.towerTab_tagWidget.children()[1:]:
+            name = tagObj.objectName().split('_')[1].replace("Tag", "")
+            if name != towerName:  # 将不被点击的标签对象加入列表，以便统一处理
+                tags.append((name, tagObj))
+            else:
+                # 处理被点击的标签，置为亮色
+                clickedTag = tagObj
+                clickedTag.setStyleSheet("border-image: url(:/tower_c/tower_48_color/TOWER_{}.png)".format(
+                    towerName.upper()))
+
+        # 处理未被点击的标签,全部置灰
+        for tup in tags:
+            tagObj = tup[1]
+            tagName = tup[0]
+            tagObj.setStyleSheet(
+                "QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_%s.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_%s_1.png);}"
+                % (tagName.upper(), tagName.upper()))
+
+        self.basicAttributeTableChange(towerName)
+
+        # self.clickedTag = clickedTag
+
+    def basicAttributeTableChange(self, towerName):
+        '''基础属性表格改变'''
+        # 清空表格
+        self.towerTab_basicAttributeTable.clear()
+
+        # 读取towerStat.json
+        with open(self.defaultTowerStatFile, 'r', encoding='utf-8') as f:
+            towerStat = json.load(f)
+
+        # 将towerstat 里的数据整理成表格用的
+        towerStatTableShow = {}
+        for tower in towerStat:
+            towerStatTableShow[tower] = {"level": [i for i in range(1, 11)], "price": towerStat[tower]["prices"]}
+            for key in towerStat[tower]['stats']:
+                if towerStat[tower]['stats'][key].get("values", 0):
+                    towerStatTableShow[tower][key] = towerStat[tower]['stats'][key]["values"]
+
+        # 将towerStatTableShow里的数据填入表格
+        info = towerStatTableShow[towerName.upper()]
+        # 设置表格列数
+        self.towerTab_basicAttributeTable.setColumnCount(len(info))
+        for i in range(len(info)):
+            # 设置表头
+            key = list(info.keys())[i]
+            item = QTableWidgetItem(key.lower())
+            # 设置Item居中样式
+            item.setTextAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+            # 设置加粗样式
+            item.setFont(self.uniqueFont.Bold(10))
+            # 加入表头
+            self.towerTab_basicAttributeTable.setHorizontalHeaderItem(i, item)
+
+        # 设置表格头部自适应缩放
+
+        self.towerTab_basicAttributeTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+
+        #TODO: 更新表格管理类方法管理表头样式
+        #FIXME: 表头样式不生效
+
+        # 设置表格内容
+        self.towerTab_basicAttributeTable.setRowCount(10)
+        for col in range(len(info)):
+            key = list(info.keys())[col]
+            for row in range(10):
+                item = QTableWidgetItem(str(info[key][row]))
+                # 设置Item居中样式
+                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
+                self.towerTab_basicAttributeTable.setItem(row, col, item)

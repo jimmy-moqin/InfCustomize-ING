@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1149</width>
+    <width>1294</width>
     <height>765</height>
    </rect>
   </property>
@@ -295,7 +295,10 @@
        <attribute name="title">
         <string>防御塔属性修改</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,19">
+       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,17,0">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetDefaultConstraint</enum>
+        </property>
         <property name="leftMargin">
          <number>11</number>
         </property>
@@ -332,7 +335,7 @@ QScrollBar {width:0px;}
             <rect>
              <x>0</x>
              <y>-206</y>
-             <width>55</width>
+             <width>52</width>
              <height>894</height>
             </rect>
            </property>
@@ -356,7 +359,7 @@ QScrollBar {width:0px;}
              <number>0</number>
             </property>
             <item>
-             <widget class="QWidget" name="widget" native="true">
+             <widget class="QWidget" name="towerTab_tagWidget" native="true">
               <layout class="QVBoxLayout" name="verticalLayout_7">
                <property name="spacing">
                 <number>10</number>
@@ -374,7 +377,7 @@ QScrollBar {width:0px;}
                 <number>5</number>
                </property>
                <item>
-                <widget class="QLabel" name="towerTab_basicTag">
+                <widget class="Tag" name="towerTab_basicTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -404,7 +407,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_sniperTag">
+                <widget class="Tag" name="towerTab_sniperTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -434,7 +437,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_connonTag">
+                <widget class="Tag" name="towerTab_cannonTag">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                    <horstretch>49</horstretch>
@@ -465,7 +468,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_freezingTag">
+                <widget class="Tag" name="towerTab_freezingTag">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                    <horstretch>0</horstretch>
@@ -496,7 +499,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_airTag">
+                <widget class="Tag" name="towerTab_airTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -521,7 +524,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_splashTag">
+                <widget class="Tag" name="towerTab_splashTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -546,7 +549,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_blastTag">
+                <widget class="Tag" name="towerTab_blastTag">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                    <horstretch>0</horstretch>
@@ -577,7 +580,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_multishotTag">
+                <widget class="Tag" name="towerTab_multishotTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -602,7 +605,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_minigunTag">
+                <widget class="Tag" name="towerTab_minigunTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -627,7 +630,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_venomTag">
+                <widget class="Tag" name="towerTab_venomTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -652,7 +655,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_teslaTag">
+                <widget class="Tag" name="towerTab_teslaTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -677,7 +680,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_missileTag">
+                <widget class="Tag" name="towerTab_missileTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -702,7 +705,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_flameTag">
+                <widget class="Tag" name="towerTab_flameTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -727,7 +730,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_laserTag">
+                <widget class="Tag" name="towerTab_laserTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -752,7 +755,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_gaussTag">
+                <widget class="Tag" name="towerTab_gaussTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -777,7 +780,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="QLabel" name="towerTab_crusherTag">
+                <widget class="Tag" name="towerTab_crusherTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -818,11 +821,11 @@ QLabel{
             <rect>
              <x>0</x>
              <y>0</y>
-             <width>1045</width>
+             <width>871</width>
              <height>651</height>
             </rect>
            </property>
-           <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,8,0,3,4">
+           <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,9,0,5,0,4">
             <item>
              <widget class="QLabel" name="label_4">
               <property name="text">
@@ -831,7 +834,17 @@ QLabel{
              </widget>
             </item>
             <item>
-             <widget class="QTableWidget" name="tableWidget"/>
+             <widget class="QTableWidget" name="towerTab_basicAttributeTable">
+              <property name="showGrid">
+               <bool>false</bool>
+              </property>
+              <property name="sortingEnabled">
+               <bool>false</bool>
+              </property>
+              <attribute name="horizontalHeaderVisible">
+               <bool>false</bool>
+              </attribute>
+             </widget>
             </item>
             <item>
              <widget class="QLabel" name="label_5">
@@ -841,51 +854,84 @@ QLabel{
              </widget>
             </item>
             <item>
-             <widget class="QTableWidget" name="tableWidget_2"/>
+             <widget class="QTableWidget" name="towerTab_damageTable"/>
             </item>
             <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="8,2">
-              <item>
-               <layout class="QVBoxLayout" name="verticalLayout_10">
-                <item>
-                 <widget class="QLabel" name="label_6">
-                  <property name="text">
-                   <string>特殊能力</string>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QTableWidget" name="tableWidget_3"/>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <widget class="QGroupBox" name="groupBox_5">
-                <property name="title">
-                 <string>导出</string>
-                </property>
-                <layout class="QVBoxLayout" name="verticalLayout_9">
-                 <item>
-                  <widget class="QPushButton" name="pushButton">
-                   <property name="text">
-                    <string>导出</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushButton_2">
-                   <property name="text">
-                    <string>应用/覆盖</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </widget>
-              </item>
-             </layout>
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>特殊能力</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="tableWidget_3"/>
             </item>
            </layout>
           </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>修改记录</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_11">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_11">
+             <item>
+              <widget class="QPushButton" name="basicTab_recallRecordBtn_2">
+               <property name="text">
+                <string>撤回修改</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="basicTab_resetModifyBtn_2">
+               <property name="text">
+                <string>重置修改</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="basicTab_exportRecordBtn_2">
+               <property name="text">
+                <string>导出记录</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QListWidget" name="basicTab_modifyRecordListWidget_2">
+             <property name="font">
+              <font>
+               <family>Consolas</family>
+              </font>
+             </property>
+             <property name="sortingEnabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_12">
+             <item>
+              <widget class="QPushButton" name="pushButton_2">
+               <property name="text">
+                <string>导出</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>应用/覆盖</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
          </widget>
         </item>
        </layout>
@@ -919,7 +965,7 @@ QLabel{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1149</width>
+     <width>1294</width>
      <height>24</height>
     </rect>
    </property>
@@ -1025,6 +1071,13 @@ QLabel{
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Tag</class>
+   <extends>QLabel</extends>
+   <header>tag.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../img/tower.qrc"/>
  </resources>
