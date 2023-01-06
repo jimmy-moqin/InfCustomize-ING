@@ -1,39 +1,14 @@
 import json
-import logging
 import os
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QFont
-from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate, QMainWindow, QMessageBox, QTableWidgetItem)
+from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate,
+                             QMainWindow, QMessageBox, QTableWidgetItem)
+from ui.basicTab import Ui_BasicTab
 from ui.modify import Ui_ModifyWindow
-
-
-class logger(object):
-
-    def __init__(self, name):
-        self.logger = logging.getLogger(name)
-        self.logger.setLevel(logging.DEBUG)
-        self.fh = logging.FileHandler('log.log', encoding='utf-8')
-        self.fh.setLevel(logging.DEBUG)
-        self.ch = logging.StreamHandler()
-        self.ch.setLevel(logging.DEBUG)
-        self.formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        self.fh.setFormatter(self.formatter)
-        self.ch.setFormatter(self.formatter)
-        self.logger.addHandler(self.fh)
-        self.logger.addHandler(self.ch)
-
-    def info(self, msg):
-        self.logger.info(msg)
-
-    def debug(self, msg):
-        self.logger.debug(msg)
-
-    def warning(self, msg):
-        self.logger.warning(msg)
-
-    def error(self, msg):
-        self.logger.error(msg)
+from utils.ListWidgetManager import ListWidgetManager
+from utils.Logger import logger
+from utils.TableWidgetManager import TableWidgetManager
+from utils.UniqueFont import UniqueFont
 
 
 class EmptyDelegate(QItemDelegate):
@@ -46,139 +21,12 @@ class EmptyDelegate(QItemDelegate):
         return None
 
 
-class ListWidgetManager():
-    '''ListWidget管理类'''
-
-    def __init__(self, listWidget):
-        self.listWidget = listWidget
-        self.varList = []
-        self.varValueDict = {}
-
-    def add(self, var, value):
-        '''添加变量名和变量值'''
-        self.varList.append(var)
-        self.varValueDict[var] = value
-        item = self.string2listwidget(var, value, 25)
-        self.listWidget.addItem(item)
-
-    def clear(self):
-        '''清空ListWidget'''
-        self.listWidget.clear()
-        self.varList = []
-        self.varValueDict = {}
-        print(self.varList)
-
-    def remove(self, row):
-        '''删除选中的变量'''
-        var = self.varList[row]
-        self.listWidget.takeItem(row)  # 删除原来的变量
-        self.varList.remove(var)  # 在列表中删除
-        self.varValueDict.pop(var)  # 在字典中删除
-        print(self.varList)
-
-    def string2listwidget(self, var, value, lenth=20):
-        '''该格式化函数,用于将修改后的变量名和变量值格式化地显示在Listwidget中'''
-        if var == '': return
-        if value == '': return
-        if len(var) >= lenth:
-            per = lenth - 6
-            pre_var = var[:per]
-            suf_var = var[-3:]
-            var = pre_var + '...' + suf_var
-        else:
-            var = var.rjust(lenth, ' ')
-
-        return "{} -> {}".format(var, value)
-
-    def update(self, var, value):
-        '''更新变量'''
-        if var not in self.varList:
-
-            self.add(var, value)
-        else:
-            row = self.varList.index(var)
-            self.listWidget.takeItem(row)  # 删除原来的变量
-            self.varList.remove(var)  # 在列表中删除
-            self.varValueDict.pop(var)  # 在字典中删除
-            self.add(var, value)  # 添加新的变量
-        print(self.varList)
-
-    def getvar(self, row):
-        '''获取变量名'''
-        return self.varList[row]
-
-    def output(self, path):
-        '''输出变量值'''
-        with open(path, 'w') as f:
-            for var, value in self.varValueDict.items():
-                f.write('{}\n'.format(self.string2listwidget(var, value, 25)))
-
-
-class TableWidgetManager():
-    '''TableWidget管理类'''
-
-    def __init__(self, tableWidget):
-        self.tableWidget = tableWidget
-
-    def getCurrentVars(self):
-        '''获取当前表格中的变量名'''
-        varList = []
-        for i in range(self.tableWidget.rowCount()):
-            varList.append(self.tableWidget.item(i, 0).text().replace(" ", "_"))
-        return varList
-
-    def renderItemsFromDict(self, varValueDict):
-        '''从字典中添加变量'''
-        # 清空表格
-        self.tableWidget.clearContents()
-        # 设置表格行数
-        self.tableWidget.setRowCount(len(varValueDict))
-
-        i = 0
-        for row in varValueDict:
-            var = QTableWidgetItem(row.replace("_", " "))
-            units = QTableWidgetItem(varValueDict[row]['units'])
-            default = QTableWidgetItem(str(varValueDict[row]['default']))
-            desc = QTableWidgetItem(varValueDict[row]['desc'])
-            modify = QTableWidgetItem(str(varValueDict[row].get('modify', '')))
-
-            self.tableWidget.setItem(i, 0, var)
-            self.tableWidget.setItem(i, 1, desc)
-            if units.text() == 'UNITS_PER_SECOND':
-                units.setText('1单位/秒')
-            elif units.text() == 'SECONDS':
-                units.setText('秒')
-            elif units.text() == 'PERCENTS':
-                units.setText('百分比')
-            elif units.text() == 'UNITS':
-                units.setText('1单位')
-            elif units.text() == 'BOOLEAN':
-                units.setText('布尔值')
-            self.tableWidget.setItem(i, 2, units)
-            self.tableWidget.setItem(i, 3, default)
-            self.tableWidget.setItem(i, 4, modify)
-            i += 1
-
-
-class UniqueFont(QFont):
-    '''字体管理类'''
-
-    def __init__(self):
-        super(UniqueFont, self).__init__()
-
-    def Bold(self, size=10):
-        boldFont = QFont()
-        boldFont.setBold(True)
-        boldFont.setPointSize(size)
-        return boldFont
-
-
-class ModifyMain(QMainWindow, Ui_ModifyWindow):
+class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
 
     def __init__(self):
         super(ModifyMain, self).__init__()
         self.setupUi(self)
-
+        
         # 实例化日志对象
         self.logger = logger('modifyMain')
         # 实例化ListWidget管理类
@@ -195,7 +43,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.defaultFilePath = os.path.join(self.currentPath, 'default')
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
         self.defaultTowerStatFile = os.path.join(self.defaultFilePath, 'tower-stats.json')
-        #
+    
 
         self.initMenu()
 
@@ -226,6 +74,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.basicTab_exportRecordBtn.clicked.connect(self.exportRecord)
         self.basicTab_outputBtn.clicked.connect(self.outputFile)
         self.basicTab_applyBtn.clicked.connect(self.applyFile)
+        self.infoBtn.clicked.connect(self.showRecordInfo)
 
         # 绑定ComboBox动作
         self.basicTab_selectComboBox_1.activated.connect(self.selectChange)
@@ -245,6 +94,9 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         for i in range(0, 4):
             self.basicTab_tableWidget.setItemDelegateForColumn(i, EmptyDelegate(self))
 
+        # 设置修改记录widget隐藏
+        self.basicTab_modifyRecordWidget.hide()
+
         ############################## towerTab UI ##############################
 
         # 绑定左侧Tag
@@ -260,17 +112,13 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.towerTab_venomTag.clicked.connect(lambda: self.tagChange('venom'))
         self.towerTab_teslaTag.clicked.connect(lambda: self.tagChange('tesla'))
         self.towerTab_missileTag.clicked.connect(lambda: self.tagChange('missile'))
-        self.towerTab_flameTag.clicked.connect(lambda: self.tagChange('flame'))
+        self.towerTab_flamethrowerTag.clicked.connect(lambda: self.tagChange('flamethrower'))
         self.towerTab_laserTag.clicked.connect(lambda: self.tagChange('laser'))
         self.towerTab_gaussTag.clicked.connect(lambda: self.tagChange('gauss'))
         self.towerTab_crusherTag.clicked.connect(lambda: self.tagChange('crusher'))
 
-        self.towerTab_basicAttributeTable.verticalHeader().setHidden(True)
-        self.towerTab_basicAttributeTable.horizontalHeader().setHidden(False)
         # 设置表格自动换行
-        self.towerTab_basicAttributeTable.setWordWrap(True)
-        # 设置表格第一列不可编辑
-        self.towerTab_basicAttributeTable.setItemDelegateForColumn(0, EmptyDelegate(self))
+        self.towerTab_basicAttributeTableWidget.setWordWrap(True)
 
     ################## Methods of Menu ##################
 
@@ -321,8 +169,12 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 self.basicTab_initFileLineEdit.setText(self.gameValueFile)
                 # 显示Tab1
                 self.tabWidget.setCurrentIndex(0)
+
                 # 解析基础变量文件
                 self.gameValueFileParse()
+  
+                # 解析塔属性文件
+                self.towerStatsFileParse()
 
         # 如果不存在res文件夹
         else:
@@ -372,6 +224,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.tabWidget.setCurrentIndex(0)
             # 解析基础变量文件
             self.gameValueFileParse()
+            # 解析塔属性文件
+            self.towerStatsFileParse()
 
     ################## Methods of Tab Basic ##################
 
@@ -611,7 +465,13 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 pass
         else:
             pass
-
+    
+    def showRecordInfo(self):
+        if self.basicTab_modifyRecordWidget.isHidden():
+            self.basicTab_modifyRecordWidget.show()
+        else:
+            self.basicTab_modifyRecordWidget.hide()
+    
     ################## Methods of Tab Tower ##################
     def tagChange(self, towerName):
         '''标签改变'''
@@ -634,55 +494,118 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 "QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_%s.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_%s_1.png);}"
                 % (tagName.upper(), tagName.upper()))
 
-        self.basicAttributeTableChange(towerName)
+        self.towerTabTowerStatTableShow(towerName)
 
-        # self.clickedTag = clickedTag
+    def towerStatsFileParse(self):
+        '''解析tower_stats.json文件'''
+        attributesZh = {
+            'prices': '价格',
+            'RANGE': '射程',
+            'DAMAGE': '伤害',
+            'ATTACK_SPEED': '攻击速度',
+            'ROTATION_SPEED': '旋转速度',
+            'PROJECTILE_SPEED': '子弹速度',
+            'U_BURN_CHANCE': '燃烧机率',
+            'U_BURNING_TIME': '燃烧时间',
+            'U_DAMAGE_MULTIPLY': '伤害加成',
+            'STUN_CHANCE': '眩晕机率',
+            'U_STUN_DURATION': '眩晕时间',
+            'U_EXPLOSION_RANGE': '爆炸范围',
+            'FREEZE_PERCENT': '冰冻机率',
+            'FREEZE_SPEED': '冰冻速度',
+            'U_POISON_DURATION_BONUS': '中毒时间',
+            'U_CHAIN_LIGHTNING_BONUS_LENGTH': '链电长度',
+            'U_BATTERIES_CAPACITY': '电池容量',
+            'U_ACCELERATION': '加速度',
+            'U_PROJECTILE_COUNT': '子弹数量',
+            'U_SHOOT_ANGLE': '射击角度',
+            'AIM_SPEED': '瞄准速度',
+            'U_CRIT_CHANCE': '暴击机率',
+            'U_CRIT_MULTIPLIER': '暴击加成',
+            'ACCURACY': '精准度',
+            'CHAIN_LIGHTNING_DAMAGE': '链电伤害',
+            'U_CHAIN_LIGHTNING_LENGTH': '链电长度',
+            'U_POISON_DURATION': '中毒时间',
+            'RESOURCE_CONSUMPTION': '资源消耗',
+            'CHARGING_SPEED': '充能速度',
+            'DURATION': '持续时间',
+            'U_BONUS_EXPERIENCE': '经验加成',
+            'U_LRM_AIM_SPEED': '瞄准速度',
+        }
+        with open(self.towerStatsFile, 'r', encoding='utf-8') as f:
+            towerStats = json.load(f)
 
-    def basicAttributeTableChange(self, towerName):
-        '''基础属性表格改变'''
-        # 清空表格
-        self.towerTab_basicAttributeTable.clear()
+        self.towerTab_basicAttributeTableWidgetInfo = {}
+        self.towerTab_basicAttributeTableWidgetHeader = {}
+        self.towerTab_abilityTableWidgetInfo = {}
+        self.towerTab_abilityTableWidgetHeader = {}
 
-        # 读取towerStat.json
-        with open(self.defaultTowerStatFile, 'r', encoding='utf-8') as f:
-            towerStat = json.load(f)
+        for tower in towerStats:
+            # 初始化字典
+            self.towerTab_basicAttributeTableWidgetHeader[tower] = []
+            self.towerTab_basicAttributeTableWidgetInfo[tower] = []
+            self.towerTab_abilityTableWidgetHeader[tower] = []
+            self.towerTab_abilityTableWidgetInfo[tower] = []
 
-        # 将towerstat 里的数据整理成表格用的
-        towerStatTableShow = {}
-        for tower in towerStat:
-            towerStatTableShow[tower] = {"level": [i for i in range(1, 11)], "price": towerStat[tower]["prices"]}
-            for key in towerStat[tower]['stats']:
-                if towerStat[tower]['stats'][key].get("values", 0):
-                    towerStatTableShow[tower][key] = towerStat[tower]['stats'][key]["values"]
+            # 获取价格属性
+            priceList = towerStats[tower]['prices']
+            self.towerTab_basicAttributeTableWidgetHeader[tower].append(attributesZh["prices"])
+            self.towerTab_basicAttributeTableWidgetInfo[tower].append(priceList)
 
-        # 将towerStatTableShow里的数据填入表格
-        info = towerStatTableShow[towerName.upper()]
-        # 设置表格列数
-        self.towerTab_basicAttributeTable.setColumnCount(len(info))
-        for i in range(len(info)):
-            # 设置表头
-            key = list(info.keys())[i]
-            item = QTableWidgetItem(key.lower())
-            # 设置Item居中样式
-            item.setTextAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
-            # 设置加粗样式
-            item.setFont(self.uniqueFont.Bold(10))
-            # 加入表头
-            self.towerTab_basicAttributeTable.setHorizontalHeaderItem(i, item)
+            # 获取其他基础属性
+            for att in towerStats[tower]["stats"]:
+                # 如果属性值里有value字段，说明是基础属性
+                if towerStats[tower]["stats"][att].get("values", 0):
+                    self.towerTab_basicAttributeTableWidgetHeader[tower].append(attributesZh[att])
+                    self.towerTab_basicAttributeTableWidgetInfo[tower].append(towerStats[tower]["stats"][att]["values"])
+                    # 如果同时含有max字段
+                    if towerStats[tower]["stats"][att].get("max", 0):
+                        # 这里的索引-1是因为上面已经append进去一个列表，这个max要加在上述列表的最后，所以要用-1来取得上述列表
+                        self.towerTab_basicAttributeTableWidgetInfo[tower][-1].append(
+                            towerStats[tower]["stats"][att]["max"])
+                    else:
+                        # 如果没有max字段，就在最后加一个空值
+                        self.towerTab_basicAttributeTableWidgetInfo[tower][-1].append("-")
+                # 如果属性值里没有value字段，说明是特殊属性
+                else:
+                    self.towerTab_abilityTableWidgetHeader[tower].append(attributesZh[att])
+                    sublist = []
+                    sublist.append(towerStats[tower]["stats"][att]['startValue'])
+                    sublist.append(towerStats[tower]["stats"][att]['valueDelta'])
+                    # 如果同时含有max字段
+                    if towerStats[tower]["stats"][att].get("max", 0):
+                        sublist.append(towerStats[tower]["stats"][att]['max'])
+                    else:
+                        # 如果没有max字段，就在最后加一个空值
+                        sublist.append("-")
+                    self.towerTab_abilityTableWidgetInfo[tower].append(sublist)
 
-        # 设置表格头部自适应缩放
+    def towerTabTowerStatTableShow(self, towerName):
+        towerName = towerName.upper()
+        basicAttInfo = self.towerTab_basicAttributeTableWidgetInfo[towerName]
+        basicAttHeader = self.towerTab_basicAttributeTableWidgetHeader[towerName]
+        abilityInfo = self.towerTab_abilityTableWidgetInfo[towerName]
+        abilityHeader = self.towerTab_abilityTableWidgetHeader[towerName]
 
-        self.towerTab_basicAttributeTable.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Fixed)
+        print(basicAttInfo)
+        print(basicAttHeader)
+        print(abilityInfo)
+        print(abilityHeader)
 
-        #TODO: 更新表格管理类方法管理表头样式
-        #FIXME: 表头样式不生效
+        self.towerTab_basicAttributeTableWidget.clear()
+        self.towerTab_basicAttributeTableWidget.setColumnCount(len(basicAttHeader))
+        self.towerTab_basicAttributeTableWidget.setHorizontalHeaderLabels(basicAttHeader)
+        self.towerTab_basicAttributeTableWidget.setRowCount(11)
+        for i in range(len(basicAttInfo)):
+            for j in range(len(basicAttInfo[i])):
+                item = QTableWidgetItem(str(basicAttInfo[i][j]))
+                self.towerTab_basicAttributeTableWidget.setItem(j, i, item)
 
-        # 设置表格内容
-        self.towerTab_basicAttributeTable.setRowCount(10)
-        for col in range(len(info)):
-            key = list(info.keys())[col]
-            for row in range(10):
-                item = QTableWidgetItem(str(info[key][row]))
-                # 设置Item居中样式
-                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter | Qt.AlignmentFlag.AlignVCenter)
-                self.towerTab_basicAttributeTable.setItem(row, col, item)
+        self.towerTab_abilityTableWidget.clear()
+        self.towerTab_abilityTableWidget.setColumnCount(len(abilityHeader))
+        self.towerTab_abilityTableWidget.setHorizontalHeaderLabels(abilityHeader)
+        self.towerTab_abilityTableWidget.setRowCount(len(abilityInfo))
+        for i in range(len(abilityInfo)):
+            for j in range(len(abilityInfo[i])):
+                item = QTableWidgetItem(str(abilityInfo[i][j]))
+                self.towerTab_abilityTableWidget.setItem(i, j, item)

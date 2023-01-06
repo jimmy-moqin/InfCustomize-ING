@@ -5,8 +5,8 @@
     <file>tower_48_color/TOWER_BLAST.png</file>
     <file>tower_48_color/TOWER_CANNON.png</file>
     <file>tower_48_color/TOWER_CRUSHER.png</file>
-    <file>tower_48_color/TOWER_FLAME.png</file>
     <file>tower_48_color/TOWER_FREEZING.png</file>
+    <file>tower_48_color/TOWER_FLAMETHROWER.png</file>
     <file>tower_48_color/TOWER_GAUSS.png</file>
     <file>tower_48_color/TOWER_LASER.png</file>
     <file>tower_48_color/TOWER_MINIGUN.png</file>
@@ -17,16 +17,16 @@
     <file>tower_48_color/TOWER_TESLA.png</file>
     <file>tower_48_color/TOWER_VENOM.png</file>
   </qresource>
-  <qresource prefix="blank">
-    <file>blank.png</file>
+  <qresource prefix="btn">
+    <file>btn.png</file>
   </qresource>
   <qresource prefix="tower_g">
+    <file>tower_48_grey/TOWER_FLAMETHROWER_1.png</file>
     <file>tower_48_grey/TOWER_AIR_1.png</file>
     <file>tower_48_grey/TOWER_BASIC_1.png</file>
     <file>tower_48_grey/TOWER_BLAST_1.png</file>
     <file>tower_48_grey/TOWER_CANNON_1.png</file>
     <file>tower_48_grey/TOWER_CRUSHER_1.png</file>
-    <file>tower_48_grey/TOWER_FLAME_1.png</file>
     <file>tower_48_grey/TOWER_FREEZING_1.png</file>
     <file>tower_48_grey/TOWER_GAUSS_1.png</file>
     <file>tower_48_grey/TOWER_LASER_1.png</file>

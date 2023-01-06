@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1294</width>
-    <height>765</height>
+    <width>1664</width>
+    <height>959</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,7 +47,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>false</bool>
@@ -62,21 +62,53 @@
        <attribute name="title">
         <string>基础变量修改</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,3">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,0,0,0">
+        <property name="spacing">
+         <number>0</number>
+        </property>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,8">
+         <layout class="QVBoxLayout" name="verticalLayout_3" stretch="1,9">
           <item>
            <widget class="QGroupBox" name="groupBox">
             <property name="title">
              <string>搜索/筛选</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_4">
+            <layout class="QVBoxLayout" name="verticalLayout_4" stretch="1,4,4,1">
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="1,8,1">
+              <spacer name="verticalSpacer_3">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item>
+              <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="3,1,6,1,3">
+               <item>
+                <spacer name="horizontalSpacer">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
                <item>
                 <widget class="QLabel" name="label_2">
                  <property name="text">
                   <string>搜索</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
@@ -90,14 +122,43 @@
                  </property>
                 </widget>
                </item>
+               <item>
+                <spacer name="horizontalSpacer_2">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
               </layout>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="1,4,4,1">
+              <layout class="QHBoxLayout" name="horizontalLayout_2" stretch="3,1,3,3,1,3">
+               <item>
+                <spacer name="horizontalSpacer_3">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
                <item>
                 <widget class="QLabel" name="label_3">
                  <property name="text">
                   <string>筛选</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
                  </property>
                 </widget>
                </item>
@@ -130,7 +191,33 @@
                  </property>
                 </widget>
                </item>
+               <item>
+                <spacer name="horizontalSpacer_4">
+                 <property name="orientation">
+                  <enum>Qt::Horizontal</enum>
+                 </property>
+                 <property name="sizeHint" stdset="0">
+                  <size>
+                   <width>40</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </spacer>
+               </item>
               </layout>
+             </item>
+             <item>
+              <spacer name="verticalSpacer_2">
+               <property name="orientation">
+                <enum>Qt::Vertical</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>20</width>
+                 <height>40</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -149,7 +236,7 @@
              <bool>false</bool>
             </property>
             <attribute name="horizontalHeaderVisible">
-             <bool>true</bool>
+             <bool>false</bool>
             </attribute>
             <attribute name="horizontalHeaderDefaultSectionSize">
              <number>140</number>
@@ -190,104 +277,195 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,7,2">
+         <layout class="QVBoxLayout" name="verticalLayout_10">
           <item>
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>导入-初始基础变量文件路径</string>
+           <widget class="QPushButton" name="infoBtn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="8">
-             <item>
-              <widget class="QLineEdit" name="basicTab_initFileLineEdit"/>
-             </item>
-            </layout>
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
+              <height>110</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-image: url(:/btn/btn.png);
+border:none;</string>
+            </property>
+            <property name="text">
+             <string>修
+改
+信
+息</string>
+            </property>
            </widget>
           </item>
           <item>
-           <widget class="QGroupBox" name="groupBox_4">
-            <property name="title">
-             <string>修改记录</string>
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_6">
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="line">
+          <property name="minimumSize">
+           <size>
+            <width>1</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>1</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(39, 39, 39);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="basicTab_modifyRecordWidget" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout_9">
+           <property name="spacing">
+            <number>0</number>
+           </property>
+           <property name="leftMargin">
+            <number>0</number>
+           </property>
+           <property name="topMargin">
+            <number>0</number>
+           </property>
+           <property name="rightMargin">
+            <number>0</number>
+           </property>
+           <property name="bottomMargin">
+            <number>0</number>
+           </property>
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,7,2">
              <item>
-              <widget class="QListWidget" name="basicTab_modifyRecordListWidget">
-               <property name="font">
-                <font>
-                 <family>Consolas</family>
-                </font>
+              <widget class="QGroupBox" name="groupBox_2">
+               <property name="title">
+                <string>导入-初始基础变量文件路径</string>
                </property>
-               <property name="sortingEnabled">
-                <bool>false</bool>
-               </property>
+               <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="8">
+                <item>
+                 <widget class="QLineEdit" name="basicTab_initFileLineEdit"/>
+                </item>
+               </layout>
               </widget>
              </item>
              <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_7">
-               <item>
-                <widget class="QPushButton" name="basicTab_recallRecordBtn">
-                 <property name="text">
-                  <string>撤回修改</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="basicTab_resetModifyBtn">
-                 <property name="text">
-                  <string>重置修改</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="basicTab_exportRecordBtn">
-                 <property name="text">
-                  <string>导出记录</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <widget class="QGroupBox" name="groupBox_4">
+               <property name="title">
+                <string>修改记录</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <item>
+                 <widget class="QListWidget" name="basicTab_modifyRecordListWidget">
+                  <property name="font">
+                   <font>
+                    <family>Consolas</family>
+                   </font>
+                  </property>
+                  <property name="sortingEnabled">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_7">
+                  <item>
+                   <widget class="QPushButton" name="basicTab_recallRecordBtn">
+                    <property name="text">
+                     <string>撤回修改</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="basicTab_resetModifyBtn">
+                    <property name="text">
+                     <string>重置修改</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="basicTab_exportRecordBtn">
+                    <property name="text">
+                     <string>导出记录</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QGroupBox" name="groupBox_3">
+               <property name="title">
+                <string>导出</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_4">
+                  <item>
+                   <widget class="QLabel" name="label">
+                    <property name="text">
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可以选择直接覆盖原有 &lt;span style=&quot; text-decoration: underline;&quot;&gt;game-value.josn&lt;/span&gt; 文件&lt;/p&gt;&lt;p&gt;也可以导出到其他目录&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+                <item>
+                 <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="5,5">
+                  <item>
+                   <widget class="QPushButton" name="basicTab_applyBtn">
+                    <property name="text">
+                     <string>应用/覆盖</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QPushButton" name="basicTab_outputBtn">
+                    <property name="text">
+                     <string>导出json文件</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
             </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_3">
-            <property name="title">
-             <string>导出</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_4">
-               <item>
-                <widget class="QLabel" name="label">
-                 <property name="text">
-                  <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可以选择直接覆盖原有 &lt;span style=&quot; text-decoration: underline;&quot;&gt;game-value.josn&lt;/span&gt; 文件&lt;/p&gt;&lt;p&gt;也可以导出到其他目录&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="5,5">
-               <item>
-                <widget class="QPushButton" name="basicTab_applyBtn">
-                 <property name="text">
-                  <string>应用/覆盖</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QPushButton" name="basicTab_outputBtn">
-                 <property name="text">
-                  <string>导出</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+           </item>
+          </layout>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -295,12 +473,9 @@
        <attribute name="title">
         <string>防御塔属性修改</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="1,17,0">
-        <property name="sizeConstraint">
-         <enum>QLayout::SetDefaultConstraint</enum>
-        </property>
-        <property name="leftMargin">
-         <number>11</number>
+       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1,100,0,0,0">
+        <property name="spacing">
+         <number>0</number>
         </property>
         <item>
          <widget class="QScrollArea" name="leftTagsScrollArea">
@@ -334,7 +509,7 @@ QScrollBar {width:0px;}
            <property name="geometry">
             <rect>
              <x>0</x>
-             <y>-206</y>
+             <y>0</y>
              <width>52</width>
              <height>894</height>
             </rect>
@@ -705,7 +880,7 @@ QLabel{
                 </widget>
                </item>
                <item>
-                <widget class="Tag" name="towerTab_flameTag">
+                <widget class="Tag" name="towerTab_flamethrowerTag">
                  <property name="minimumSize">
                   <size>
                    <width>49</width>
@@ -719,7 +894,7 @@ QLabel{
                   </size>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_FLAME.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_FLAME_1.png);}</string>
+                  <string notr="true">QLabel:hover{border-image:url(:/tower_c/tower_48_color/TOWER_FLAMETHROWER.png)}QLabel{border-image: url(:/tower_g/tower_48_grey/TOWER_FLAMETHROWER_1.png);}</string>
                  </property>
                  <property name="text">
                   <string/>
@@ -812,62 +987,193 @@ QLabel{
          </widget>
         </item>
         <item>
-         <widget class="QScrollArea" name="mainScrollArea">
-          <property name="widgetResizable">
-           <bool>true</bool>
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents_2">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>871</width>
-             <height>651</height>
-            </rect>
-           </property>
-           <layout class="QVBoxLayout" name="verticalLayout_8" stretch="0,9,0,5,0,4">
-            <item>
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>基础属性</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTableWidget" name="towerTab_basicAttributeTable">
-              <property name="showGrid">
-               <bool>false</bool>
-              </property>
-              <property name="sortingEnabled">
-               <bool>false</bool>
-              </property>
-              <attribute name="horizontalHeaderVisible">
-               <bool>false</bool>
-              </attribute>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_5">
-              <property name="text">
-               <string>伤害倍率</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTableWidget" name="towerTab_damageTable"/>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_6">
-              <property name="text">
-               <string>特殊能力</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QTableWidget" name="tableWidget_3"/>
-            </item>
-           </layout>
-          </widget>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_8">
+          <item>
+           <widget class="QLabel" name="label_4">
+            <property name="text">
+             <string>基础属性</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="towerTab_basicAttributeTableWidget">
+            <property name="showGrid">
+             <bool>true</bool>
+            </property>
+            <property name="sortingEnabled">
+             <bool>false</bool>
+            </property>
+            <row>
+             <property name="text">
+              <string>Level 01</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 02</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 03</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 04</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 05</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 06</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 07</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 08</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Level 10</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Max</string>
+             </property>
+            </row>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_5">
+            <property name="text">
+             <string>伤害倍率</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="towerTab_damageTableWidget"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_6">
+            <property name="text">
+             <string>特殊能力</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTableWidget" name="towerTab_abilityTableWidget">
+            <row>
+             <property name="text">
+              <string>起始数值</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>递增数值</string>
+             </property>
+            </row>
+            <row>
+             <property name="text">
+              <string>Max</string>
+             </property>
+            </row>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_12">
+          <item>
+           <widget class="QPushButton" name="infoBtn_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>20</width>
+              <height>110</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border-image: url(:/btn/btn.png);
+border:none;</string>
+            </property>
+            <property name="text">
+             <string>修
+改
+信
+息</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QLabel" name="line_2">
+          <property name="minimumSize">
+           <size>
+            <width>1</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>1</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">background-color: rgb(29, 29, 29);</string>
+          </property>
+          <property name="text">
+           <string/>
+          </property>
          </widget>
         </item>
         <item>
@@ -879,21 +1185,21 @@ QLabel{
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
-              <widget class="QPushButton" name="basicTab_recallRecordBtn_2">
+              <widget class="QPushButton" name="towerTab_recallRecordBtn">
                <property name="text">
                 <string>撤回修改</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="basicTab_resetModifyBtn_2">
+              <widget class="QPushButton" name="towerTab_resetModifyBtn">
                <property name="text">
                 <string>重置修改</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="basicTab_exportRecordBtn_2">
+              <widget class="QPushButton" name="towerTab_exportRecordBtn">
                <property name="text">
                 <string>导出记录</string>
                </property>
@@ -902,7 +1208,7 @@ QLabel{
             </layout>
            </item>
            <item>
-            <widget class="QListWidget" name="basicTab_modifyRecordListWidget_2">
+            <widget class="QListWidget" name="towerTab_modifyRecordListWidget">
              <property name="font">
               <font>
                <family>Consolas</family>
@@ -916,14 +1222,14 @@ QLabel{
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_12">
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="towerTab_outputBtn">
                <property name="text">
-                <string>导出</string>
+                <string>导出json文件</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="towerTab_applyBtn">
                <property name="text">
                 <string>应用/覆盖</string>
                </property>
@@ -965,7 +1271,7 @@ QLabel{
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1294</width>
+     <width>1664</width>
      <height>24</height>
     </rect>
    </property>
@@ -1075,7 +1381,10 @@ QLabel{
   <customwidget>
    <class>Tag</class>
    <extends>QLabel</extends>
-   <header>tag.h</header>
+   <header>widgets/tag.h</header>
+   <slots>
+    <slot>clicked()</slot>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources>
