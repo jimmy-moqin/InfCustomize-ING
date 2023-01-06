@@ -3,7 +3,6 @@ import os
 
 from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate,
                              QMainWindow, QMessageBox, QTableWidgetItem)
-from ui.basicTab import Ui_BasicTab
 from ui.modify import Ui_ModifyWindow
 from utils.ListWidgetManager import ListWidgetManager
 from utils.Logger import logger
@@ -21,12 +20,12 @@ class EmptyDelegate(QItemDelegate):
         return None
 
 
-class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
+class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
     def __init__(self):
         super(ModifyMain, self).__init__()
         self.setupUi(self)
-        
+
         # 实例化日志对象
         self.logger = logger('modifyMain')
         # 实例化ListWidget管理类
@@ -43,7 +42,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
         self.defaultFilePath = os.path.join(self.currentPath, 'default')
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
         self.defaultTowerStatFile = os.path.join(self.defaultFilePath, 'tower-stats.json')
-    
 
         self.initMenu()
 
@@ -74,7 +72,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
         self.basicTab_exportRecordBtn.clicked.connect(self.exportRecord)
         self.basicTab_outputBtn.clicked.connect(self.outputFile)
         self.basicTab_applyBtn.clicked.connect(self.applyFile)
-        self.infoBtn.clicked.connect(self.showRecordInfo)
+        self.basicTab_infoBtn.clicked.connect(lambda: self.showRecordInfo(self.basicTab_modifyRecordWidget))
 
         # 绑定ComboBox动作
         self.basicTab_selectComboBox_1.activated.connect(self.selectChange)
@@ -96,6 +94,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
 
         # 设置修改记录widget隐藏
         self.basicTab_modifyRecordWidget.hide()
+        # 设置修改记录widget隐藏
+        self.towerTab_modifyRecordGroupBox.hide()
 
         ############################## towerTab UI ##############################
 
@@ -116,6 +116,9 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
         self.towerTab_laserTag.clicked.connect(lambda: self.tagChange('laser'))
         self.towerTab_gaussTag.clicked.connect(lambda: self.tagChange('gauss'))
         self.towerTab_crusherTag.clicked.connect(lambda: self.tagChange('crusher'))
+
+        # 绑定按钮动作
+        self.towerTab_infoBtn.clicked.connect(lambda: self.showRecordInfo(self.towerTab_modifyRecordGroupBox))
 
         # 设置表格自动换行
         self.towerTab_basicAttributeTableWidget.setWordWrap(True)
@@ -172,7 +175,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
 
                 # 解析基础变量文件
                 self.gameValueFileParse()
-  
+
                 # 解析塔属性文件
                 self.towerStatsFileParse()
 
@@ -465,13 +468,14 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
                 pass
         else:
             pass
-    
-    def showRecordInfo(self):
-        if self.basicTab_modifyRecordWidget.isHidden():
-            self.basicTab_modifyRecordWidget.show()
+
+    def showRecordInfo(self, widget):
+        '''可能的公共方法，用于显示或隐藏widget'''
+        if widget.isHidden():
+            widget.show()
         else:
-            self.basicTab_modifyRecordWidget.hide()
-    
+            widget.hide()
+
     ################## Methods of Tab Tower ##################
     def tagChange(self, towerName):
         '''标签改变'''
@@ -485,6 +489,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
                 clickedTag = tagObj
                 clickedTag.setStyleSheet("border-image: url(:/tower_c/tower_48_color/TOWER_{}.png)".format(
                     towerName.upper()))
+                self.currentTower = towerName
 
         # 处理未被点击的标签,全部置灰
         for tup in tags:
@@ -581,31 +586,91 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow, Ui_BasicTab):
                     self.towerTab_abilityTableWidgetInfo[tower].append(sublist)
 
     def towerTabTowerStatTableShow(self, towerName):
+        # 信号断开
+        self.towerTab_basicAttributeTableWidget.disconnect()
+
         towerName = towerName.upper()
         basicAttInfo = self.towerTab_basicAttributeTableWidgetInfo[towerName]
         basicAttHeader = self.towerTab_basicAttributeTableWidgetHeader[towerName]
         abilityInfo = self.towerTab_abilityTableWidgetInfo[towerName]
         abilityHeader = self.towerTab_abilityTableWidgetHeader[towerName]
 
-        print(basicAttInfo)
-        print(basicAttHeader)
-        print(abilityInfo)
-        print(abilityHeader)
-
-        self.towerTab_basicAttributeTableWidget.clear()
+        # self.towerTab_basicAttributeTableWidget.clear()
+        verticalHeader = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', '最大值']
         self.towerTab_basicAttributeTableWidget.setColumnCount(len(basicAttHeader))
         self.towerTab_basicAttributeTableWidget.setHorizontalHeaderLabels(basicAttHeader)
-        self.towerTab_basicAttributeTableWidget.setRowCount(11)
+        self.towerTab_basicAttributeTableWidget.setRowCount(12)
+        self.towerTab_basicAttributeTableWidget.setVerticalHeaderLabels(verticalHeader)
+        
         for i in range(len(basicAttInfo)):
             for j in range(len(basicAttInfo[i])):
                 item = QTableWidgetItem(str(basicAttInfo[i][j]))
                 self.towerTab_basicAttributeTableWidget.setItem(j, i, item)
 
         self.towerTab_abilityTableWidget.clear()
+        verticalHeader = ['初始值', '增量', '最大值']
         self.towerTab_abilityTableWidget.setColumnCount(len(abilityHeader))
         self.towerTab_abilityTableWidget.setHorizontalHeaderLabels(abilityHeader)
-        self.towerTab_abilityTableWidget.setRowCount(len(abilityInfo))
+        self.towerTab_abilityTableWidget.setRowCount(3)
+        self.towerTab_abilityTableWidget.setVerticalHeaderLabels(verticalHeader)
+        
         for i in range(len(abilityInfo)):
             for j in range(len(abilityInfo[i])):
                 item = QTableWidgetItem(str(abilityInfo[i][j]))
                 self.towerTab_abilityTableWidget.setItem(i, j, item)
+
+        # 加载完后，信号连接-单元格内容改变
+        self.towerTab_basicAttributeTableWidget.cellChanged.connect(self.towerStatChange)
+
+    def towerStatChange(self):
+        attributesEn = {
+            "价格": "prices",
+            "射程": "RANGE",
+            "伤害": "DAMAGE",
+            "攻击速度": "ATTACK_SPEED",
+            "旋转速度": "ROTATION_SPEED",
+            "子弹速度": "PROJECTILE_SPEED",
+            "燃烧机率": "U_BURN_CHANCE",
+            "燃烧时间": "U_BURNING_TIME",
+            "伤害加成": "U_DAMAGE_MULTIPLY",
+            "眩晕机率": "STUN_CHANCE",
+            "眩晕时间": "U_STUN_DURATION",
+            "爆炸范围": "U_EXPLOSION_RANGE",
+            "冰冻机率": "FREEZE_PERCENT",
+            "冰冻速度": "FREEZE_SPEED",
+            "中毒时间": "U_POISON_DURATION_BONUS",
+            "链电长度": "U_CHAIN_LIGHTNING_BONUS_LENGTH",
+            "电池容量": "U_BATTERIES_CAPACITY",
+            "加速度": "U_ACCELERATION",
+            "子弹数量": "U_PROJECTILE_COUNT",
+            "射击角度": "U_SHOOT_ANGLE",
+            "瞄准速度": "AIM_SPEED",
+            "暴击机率": "U_CRIT_CHANCE",
+            "暴击加成": "U_CRIT_MULTIPLIER",
+            "精准度": "ACCURACY",
+            "链电伤害": "CHAIN_LIGHTNING_DAMAGE",
+            "链电长度": "U_CHAIN_LIGHTNING_LENGTH",
+            "中毒时间": "U_POISON_DURATION",
+            "资源消耗": "RESOURCE_CONSUMPTION",
+            "充能速度": "CHARGING_SPEED",
+            "持续时间": "DURATION",
+            "经验加成": "U_BONUS_EXPERIENCE",
+            "瞄准速度": "U_LRM_AIM_SPEED",
+        }
+
+        row = self.towerTab_basicAttributeTableWidget.currentRow()
+        col = self.towerTab_basicAttributeTableWidget.currentColumn()
+        # 获取修改的单元格
+        item = self.towerTab_basicAttributeTableWidget.item(row, col)
+        # 获取行标题
+        rowHeader = self.towerTab_basicAttributeTableWidget.verticalHeaderItem(row).text()
+        # 获取列标题
+        columnHeader = self.towerTab_basicAttributeTableWidget.horizontalHeaderItem(col).text()
+        # 获取修改后的值
+        value = item.text()
+        # 获取塔的名称
+        towerName = self.currentTower.upper()
+        print(towerName, rowHeader.replace("L",""), attributesEn[columnHeader], value)
+        # 修改数据
+        
+
