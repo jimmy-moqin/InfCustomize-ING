@@ -45,7 +45,6 @@ class ListWidgetManager():
     def update(self, var, value):
         '''更新变量'''
         if var not in self.varList:
-
             self.add(var, value)
         else:
             row = self.varList.index(var)

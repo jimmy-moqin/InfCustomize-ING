@@ -29,7 +29,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 实例化日志对象
         self.logger = logger('modifyMain')
         # 实例化ListWidget管理类
-        self.listWidgetManager = ListWidgetManager(self.basicTab_modifyRecordListWidget)
+        self.listWidgetManager = ListWidgetManager(self.modifyRecordUndoView)
         # 实例化TableWidget管理类
         self.tableWidgetManager = TableWidgetManager(self.basicTab_tableWidget)
         # 实例化字体管理类
@@ -67,12 +67,12 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 绑定按钮动作
         self.basicTab_searchBtn.clicked.connect(self.searchBasicVar)
         self.basicTab_selectBtn.clicked.connect(self.selectBasicVar)
-        self.basicTab_recallRecordBtn.clicked.connect(self.recallRecord)
-        self.basicTab_resetModifyBtn.clicked.connect(self.resetRecord)
-        self.basicTab_exportRecordBtn.clicked.connect(self.exportRecord)
-        self.basicTab_outputBtn.clicked.connect(self.outputFile)
-        self.basicTab_applyBtn.clicked.connect(self.applyFile)
-        self.basicTab_infoBtn.clicked.connect(lambda: self.showRecordInfo(self.basicTab_modifyRecordWidget))
+        self.recallRecordBtn.clicked.connect(self.recallRecord)
+        self.resetModifyBtn.clicked.connect(self.resetRecord)
+        self.exportRecordBtn.clicked.connect(self.exportRecord)
+        self.outputBtn.clicked.connect(self.outputFile)
+        self.applyBtn.clicked.connect(self.applyFile)
+        self.basicTab_infoBtn.clicked.connect(lambda: self.showRecordInfo(self.modifyRecordWidget))
 
         # 绑定ComboBox动作
         self.basicTab_selectComboBox_1.activated.connect(self.selectChange)
@@ -93,9 +93,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.basicTab_tableWidget.setItemDelegateForColumn(i, EmptyDelegate(self))
 
         # 设置修改记录widget隐藏
-        self.basicTab_modifyRecordWidget.hide()
-        # 设置修改记录widget隐藏
-        self.towerTab_modifyRecordGroupBox.hide()
+        self.modifyRecordWidget.hide()
+
 
         ############################## towerTab UI ##############################
 
@@ -117,8 +116,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.towerTab_gaussTag.clicked.connect(lambda: self.tagChange('gauss'))
         self.towerTab_crusherTag.clicked.connect(lambda: self.tagChange('crusher'))
 
-        # 绑定按钮动作
-        self.towerTab_infoBtn.clicked.connect(lambda: self.showRecordInfo(self.towerTab_modifyRecordGroupBox))
+
 
         # 设置表格自动换行
         self.towerTab_basicAttributeTableWidget.setWordWrap(True)
@@ -168,8 +166,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 # 启用TabWidget
                 self.tabWidget.setTabEnabled(0, True)
                 self.tabWidget.setTabEnabled(1, True)
-                # 将路径填充到文本框
-                self.basicTab_initFileLineEdit.setText(self.gameValueFile)
                 # 显示Tab1
                 self.tabWidget.setCurrentIndex(0)
 
@@ -221,8 +217,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             # 启用TabWidget
             self.tabWidget.setTabEnabled(0, True)
             self.tabWidget.setTabEnabled(1, True)
-            # 将路径填充到文本框
-            self.basicTab_initFileLineEdit.setText(self.gameValueFile)
             # 显示Tab1
             self.tabWidget.setCurrentIndex(0)
             # 解析基础变量文件
@@ -384,7 +378,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 self.logger.info(f'修改变量{var}的值为{value}')
 
     def recallRecord(self):
-        currentRow = self.basicTab_modifyRecordListWidget.currentRow()
+        currentRow = self.modifyRecordUndoView.currentIndex()
         print(currentRow)
         if currentRow != -1:
             var = self.listWidgetManager.getvar(currentRow)  # 获取撤回的变量
@@ -672,5 +666,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         towerName = self.currentTower.upper()
         print(towerName, rowHeader.replace("L",""), attributesEn[columnHeader], value)
         # 修改数据
+        self.towerTab_basicAttributeTableWidgetInfo[towerName][col][row] = value
         
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1664</width>
-    <height>959</height>
+    <height>855</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,18 +25,9 @@
    <string>Infinitode2修改器</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <property name="leftMargin">
-     <number>6</number>
-    </property>
-    <property name="topMargin">
-     <number>6</number>
-    </property>
-    <property name="rightMargin">
-     <number>6</number>
-    </property>
-    <property name="bottomMargin">
-     <number>6</number>
+   <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="8,0,0,3">
+    <property name="spacing">
+     <number>0</number>
     </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
@@ -47,7 +38,7 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="tabBarAutoHide">
        <bool>false</bool>
@@ -62,7 +53,7 @@
        <attribute name="title">
         <string>基础变量修改</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,0,0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="7,0,0">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -274,74 +265,7 @@
          </layout>
         </item>
         <item>
-         <layout class="QVBoxLayout" name="verticalLayout_10">
-          <item>
-           <widget class="QPushButton" name="basicTab_infoBtn">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>110</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-image: url(:/btn/btn.png);
-border:none;</string>
-            </property>
-            <property name="text">
-             <string>修
-改
-信
-息</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="line">
-          <property name="minimumSize">
-           <size>
-            <width>1</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>1</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(39, 39, 39);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
+         <layout class="QVBoxLayout" name="verticalLayout_10"/>
         </item>
         <item>
          <widget class="QWidget" name="basicTab_modifyRecordWidget" native="true">
@@ -361,106 +285,6 @@ border:none;</string>
            <property name="bottomMargin">
             <number>0</number>
            </property>
-           <item>
-            <layout class="QVBoxLayout" name="verticalLayout_2" stretch="1,7,2">
-             <item>
-              <widget class="QGroupBox" name="groupBox_2">
-               <property name="title">
-                <string>导入-初始基础变量文件路径</string>
-               </property>
-               <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="8">
-                <item>
-                 <widget class="QLineEdit" name="basicTab_initFileLineEdit"/>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_4">
-               <property name="title">
-                <string>修改记录</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_6">
-                <item>
-                 <widget class="QListWidget" name="basicTab_modifyRecordListWidget">
-                  <property name="font">
-                   <font>
-                    <family>Consolas</family>
-                   </font>
-                  </property>
-                  <property name="sortingEnabled">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_7">
-                  <item>
-                   <widget class="QPushButton" name="basicTab_recallRecordBtn">
-                    <property name="text">
-                     <string>撤回修改</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="basicTab_resetModifyBtn">
-                    <property name="text">
-                     <string>重置修改</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="basicTab_exportRecordBtn">
-                    <property name="text">
-                     <string>导出记录</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-             </item>
-             <item>
-              <widget class="QGroupBox" name="groupBox_3">
-               <property name="title">
-                <string>导出</string>
-               </property>
-               <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_4">
-                  <item>
-                   <widget class="QLabel" name="label">
-                    <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可以选择直接覆盖原有 &lt;span style=&quot; text-decoration: underline;&quot;&gt;game-value.josn&lt;/span&gt; 文件&lt;/p&gt;&lt;p&gt;也可以导出到其他目录&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-                <item>
-                 <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="5,5">
-                  <item>
-                   <widget class="QPushButton" name="basicTab_applyBtn">
-                    <property name="text">
-                     <string>应用/覆盖</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item>
-                   <widget class="QPushButton" name="basicTab_outputBtn">
-                    <property name="text">
-                     <string>导出json文件</string>
-                    </property>
-                   </widget>
-                  </item>
-                 </layout>
-                </item>
-               </layout>
-              </widget>
-             </item>
-            </layout>
-           </item>
           </layout>
          </widget>
         </item>
@@ -470,7 +294,7 @@ border:none;</string>
        <attribute name="title">
         <string>防御塔属性修改</string>
        </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1,100,0,0,0">
+       <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,1,100">
         <property name="spacing">
          <number>0</number>
         </property>
@@ -1040,140 +864,6 @@ QLabel{
           </item>
          </layout>
         </item>
-        <item>
-         <layout class="QVBoxLayout" name="verticalLayout_12">
-          <item>
-           <widget class="QPushButton" name="towerTab_infoBtn">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>20</width>
-              <height>110</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>Segoe UI</family>
-             </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">border-image: url(:/btn/btn.png);
-border:none;</string>
-            </property>
-            <property name="text">
-             <string>修
-改
-信
-息</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </item>
-        <item>
-         <widget class="QLabel" name="line_2">
-          <property name="minimumSize">
-           <size>
-            <width>1</width>
-            <height>0</height>
-           </size>
-          </property>
-          <property name="maximumSize">
-           <size>
-            <width>1</width>
-            <height>16777215</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background-color: rgb(29, 29, 29);</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QGroupBox" name="towerTab_modifyRecordGroupBox">
-          <property name="title">
-           <string>修改记录</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout_11">
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_11">
-             <item>
-              <widget class="QPushButton" name="towerTab_recallRecordBtn">
-               <property name="text">
-                <string>撤回修改</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="towerTab_resetModifyBtn">
-               <property name="text">
-                <string>重置修改</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="towerTab_exportRecordBtn">
-               <property name="text">
-                <string>导出记录</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <widget class="QListWidget" name="towerTab_modifyRecordListWidget">
-             <property name="font">
-              <font>
-               <family>Consolas</family>
-              </font>
-             </property>
-             <property name="sortingEnabled">
-              <bool>false</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_12">
-             <item>
-              <widget class="QPushButton" name="towerTab_outputBtn">
-               <property name="text">
-                <string>导出json文件</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="towerTab_applyBtn">
-               <property name="text">
-                <string>应用/覆盖</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-          </layout>
-         </widget>
-        </item>
        </layout>
       </widget>
       <widget class="QWidget" name="levelTab">
@@ -1196,6 +886,157 @@ border:none;</string>
         <string>统计数据修改</string>
        </attribute>
       </widget>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QPushButton" name="basicTab_infoBtn">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>20</width>
+          <height>110</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Segoe UI</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">border-image: url(:/btn/btn.png);
+border:none;</string>
+        </property>
+        <property name="text">
+         <string>修
+改
+信
+息</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QLabel" name="line">
+      <property name="minimumSize">
+       <size>
+        <width>1</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>1</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(39, 39, 39);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QWidget" name="modifyRecordWidget" native="true">
+      <layout class="QVBoxLayout" name="verticalLayout_2" stretch="10,2">
+       <item>
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="title">
+          <string>修改记录</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QUndoView" name="modifyRecordUndoView"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="QPushButton" name="recallRecordBtn">
+              <property name="text">
+               <string>撤回修改</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="resetModifyBtn">
+              <property name="text">
+               <string>重置修改</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="exportRecordBtn">
+              <property name="text">
+               <string>导出记录</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="title">
+          <string>导出</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5" stretch="0,0">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;可以选择直接覆盖原有文件,也可以导出到其他目录&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="5,5">
+            <item>
+             <widget class="QPushButton" name="applyBtn">
+              <property name="text">
+               <string>应用/覆盖</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="outputBtn">
+              <property name="text">
+               <string>导出json文件</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>
