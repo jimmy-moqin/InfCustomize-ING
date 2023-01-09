@@ -1,47 +1,40 @@
-from PyQt5.QtWidgets import QTableWidgetItem
+from typing import Dict, List, Tuple
+
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem
 
 
 class TableWidgetManager():
     '''TableWidget管理类'''
 
-    def __init__(self, tableWidget):
+    def __init__(self, tableWidget:QTableWidget):
         self.tableWidget = tableWidget
+        self.horizontalHeaders = self.tableWidget.horizontalHeader()
+        self.verticalHeaders = self.tableWidget.verticalHeader()
+        self.cols = 0
+        self.rows = 0
 
-    def getCurrentVars(self):
-        '''获取当前表格中的变量名'''
-        varList = []
-        for i in range(self.tableWidget.rowCount()):
-            varList.append(self.tableWidget.item(i, 0).text().replace(" ", "_"))
-        return varList
+    def setHorizontalHeaders(self, labels:List):
+        '''设置表头'''
+        self.tableWidget.setColumnCount(len(labels))
+        self.cols = len(labels)
+        self.tableWidget.setHorizontalHeaderLabels(labels)
+    
+    def setVerticalHeaders(self, labels:List):
+        '''设置行头'''
+        self.tableWidget.setRowCount(len(labels))
+        self.rows = len(labels)
+        self.tableWidget.setVerticalHeaderLabels(labels)
 
-    def renderItemsFromDict(self, varValueDict):
-        '''从字典中添加变量'''
-        # 清空表格
-        self.tableWidget.clearContents()
-        # 设置表格行数
-        self.tableWidget.setRowCount(len(varValueDict))
+    def render(self, data:List[List[str]]):
+        '''渲染表格'''
+        self.rows = len(data)
+        if self.rows != 0:
+            self.cols = len(data[0])
+            self.tableWidget.setRowCount(self.rows)
+            for row in range(self.rows):
+                for col in range(self.cols):
+                    self.tableWidget.setItem(row, col, QTableWidgetItem(str(data[row][col])))
+        else:
+            self.tableWidget.setRowCount(0)
 
-        i = 0
-        for row in varValueDict:
-            var = QTableWidgetItem(row.replace("_", " "))
-            units = QTableWidgetItem(varValueDict[row]['units'])
-            default = QTableWidgetItem(str(varValueDict[row]['default']))
-            desc = QTableWidgetItem(varValueDict[row]['desc'])
-            modify = QTableWidgetItem(str(varValueDict[row].get('modify', '')))
-
-            self.tableWidget.setItem(i, 0, var)
-            self.tableWidget.setItem(i, 1, desc)
-            if units.text() == 'UNITS_PER_SECOND':
-                units.setText('1单位/秒')
-            elif units.text() == 'SECONDS':
-                units.setText('秒')
-            elif units.text() == 'PERCENTS':
-                units.setText('百分比')
-            elif units.text() == 'UNITS':
-                units.setText('1单位')
-            elif units.text() == 'BOOLEAN':
-                units.setText('布尔值')
-            self.tableWidget.setItem(i, 2, units)
-            self.tableWidget.setItem(i, 3, default)
-            self.tableWidget.setItem(i, 4, modify)
-            i += 1
+    

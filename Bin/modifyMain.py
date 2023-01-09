@@ -1,12 +1,13 @@
 import json
 import os
 
+from const.Constant import Const
 from PyQt5.QtWidgets import (QFileDialog, QHeaderView, QItemDelegate,
                              QMainWindow, QMessageBox, QTableWidgetItem)
 from ui.modify import Ui_ModifyWindow
-from utils.ListWidgetManager import ListWidgetManager
 from utils.Logger import logger
 from utils.TableWidgetManager import TableWidgetManager
+from utils.TreeViewManager import TreeViewItem, TreeViewManager
 from utils.UniqueFont import UniqueFont
 
 
@@ -28,20 +29,29 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 实例化日志对象
         self.logger = logger('modifyMain')
-        # 实例化ListWidget管理类
-        self.listWidgetManager = ListWidgetManager(self.modifyRecordUndoView)
+        # 实例化TreeView管理类
+        self.treeViewManager = TreeViewManager(self.modifyRecordTreeView)
         # 实例化TableWidget管理类
-        self.tableWidgetManager = TableWidgetManager(self.basicTab_tableWidget)
+        self.basicTab_tableWidgetManager = TableWidgetManager(self.basicTab_tableWidget)
         # 实例化字体管理类
         self.uniqueFont = UniqueFont()
+        # 实例化常量类
+        self.const = Const()
 
         # 获取当前路径
         self.currentPath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.cachePath = os.path.join(self.currentPath, 'cache')
+        
         # 默认文件路径
         self.defaultFilePath = os.path.join(self.currentPath, 'default')
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
         self.defaultTowerStatFile = os.path.join(self.defaultFilePath, 'tower-stats.json')
+
+        # 表格对象和默认文件对应关系字典
+        self.tableWidgetFileDict = {
+            self.basicTab_tableWidget: {},
+        }
+
 
         self.initMenu()
 
@@ -65,8 +75,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         ############################## basicTab UI ##############################
 
         # 绑定按钮动作
-        self.basicTab_searchBtn.clicked.connect(self.searchBasicVar)
-        self.basicTab_selectBtn.clicked.connect(self.selectBasicVar)
+        self.basicTab_searchLineEdit.textChanged.connect(self.searchBasicVar)
+        self.basicTab_selectComboBox_2.currentIndexChanged.connect(self.selectBasicVar)
         self.recallRecordBtn.clicked.connect(self.recallRecord)
         self.resetModifyBtn.clicked.connect(self.resetRecord)
         self.exportRecordBtn.clicked.connect(self.exportRecord)
@@ -82,19 +92,18 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 设置表格头部自适应缩放
         self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
-        self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
+        # self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
+        # self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
         # 隐藏列表头
         self.basicTab_tableWidget.verticalHeader().setHidden(True)
         # 设置表格自动换行
         self.basicTab_tableWidget.setWordWrap(True)
-        # 设置表格前四列不可编辑
-        for i in range(0, 4):
+        # 设置表格前三列不可编辑
+        for i in range(0, 3):
             self.basicTab_tableWidget.setItemDelegateForColumn(i, EmptyDelegate(self))
 
         # 设置修改记录widget隐藏
         self.modifyRecordWidget.hide()
-
 
         ############################## towerTab UI ##############################
 
@@ -115,8 +124,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.towerTab_laserTag.clicked.connect(lambda: self.tagChange('laser'))
         self.towerTab_gaussTag.clicked.connect(lambda: self.tagChange('gauss'))
         self.towerTab_crusherTag.clicked.connect(lambda: self.tagChange('crusher'))
-
-
 
         # 设置表格自动换行
         self.towerTab_basicAttributeTableWidget.setWordWrap(True)
@@ -225,26 +232,32 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.towerStatsFileParse()
 
     ################## Methods of Tab Basic ##################
-
+    # FIXED:
     def gameValueFileParse(self):
         '''解析基础变量文件'''
-
         # 读取文件
         with open(self.gameValueFile, 'r', encoding='utf-8') as f:
             self.gameValueFileContent = json.load(f)
 
-        with open(self.defaultGameValueFile, 'r', encoding='utf-8') as f:
-            defaultGameValueFileContent = json.load(f)
-
         # 将变量的描述信息填充到变量字典中
-        for var in self.gameValueFileContent:
-            if defaultGameValueFileContent[var].get('desc'):
-                self.gameValueFileContent[var]['desc'] = defaultGameValueFileContent[var]['desc']
-            else:
-                self.gameValueFileContent[var]['desc'] = '-'
-        # 从字典将数据渲染到表格中
-        self.tableWidgetManager.renderItemsFromDict(self.gameValueFileContent)
+        for var in self.const.game_values:
+            self.gameValueFileContent[var]['desc'] = self.const.game_values[var]
+        
+        # 将基础变量文件映射到表对象字典中
+        self.tableWidgetFileDict[self.basicTab_tableWidget] = self.gameValueFileContent
 
+        # 将字典转换成2d列表
+        data = []
+        for key in self.gameValueFileContent:
+            data.append([
+                key, self.gameValueFileContent[key]['desc'], self.gameValueFileContent[key]['units'],
+                self.gameValueFileContent[key]['default']
+            ])
+
+        # 从字典将数据渲染到表格中
+        self.basicTab_tableWidgetManager.render(data)
+
+    # FIXED:
     def searchBasicVar(self):
         '''搜索基础变量'''
         # 获取搜索框内容
@@ -261,108 +274,60 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 for var in self.gameValueFileContent:
                     if (searchKeyWord in var) or (searchKeyWord in self.gameValueFileContent[var]['desc']):
                         resDict[var] = self.gameValueFileContent[var]
+
+            # 将resDict转换成2d列表
+            data = []
+            for key in resDict:
+                data.append([key, resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
             # 清空表格
             self.basicTab_tableWidget.clearContents()
             # 将搜索结果渲染到表格中
-            self.tableWidgetManager.renderItemsFromDict(resDict)
-        return resDict
+            self.basicTab_tableWidgetManager.render(data)
 
+    # FIXED:
     def selectChange(self):
+        # 暂时断开对 selectComboBox_2 的信号槽连接
+        self.basicTab_selectComboBox_2.disconnect()
         select_1 = self.basicTab_selectComboBox_1.currentText()
         if select_1 == '塔属性':
             self.basicTab_selectComboBox_2.clear()
-            self.basicTab_selectComboBox_2.addItems([
-                "基础塔",
-                "狙击塔",
-                "加农炮",
-                "寒冰塔",
-                "防空塔",
-                "溅射塔",
-                "爆破塔",
-                "散射塔",
-                "机枪塔",
-                "毒液塔",
-                "特斯拉",
-                "导弹",
-                "火焰塔",
-                "激光塔",
-                "电磁炮",
-                "破碎机",
-            ])
+            self.basicTab_selectComboBox_2.addItems(self.const.towerNameZh)
         elif select_1 == '技能':
             self.basicTab_selectComboBox_2.clear()
-            self.basicTab_selectComboBox_2.addItems([
-                "火球",
-                "暴风雪",
-                "火焰风暴",
-                "雷",
-                "烟雾弹",
-                "风暴",
-                "磁铁",
-                "子弹墙",
-                "球状闪电",
-                "LOIC",
-                "核武器",
-                "超载",
-            ])
+            self.basicTab_selectComboBox_2.addItems(self.const.AbilityNameZh)
         elif select_1 == '杂项':
             self.basicTab_selectComboBox_2.clear()
             self.basicTab_selectComboBox_2.addItems([
                 "矿机",
                 "积分",
             ])
+        # 重新连接对 selectComboBox_2 的信号槽连接
+        self.basicTab_selectComboBox_2.currentTextChanged.connect(self.selectBasicVar)
 
+    # FIXED:
     def selectBasicVar(self):
         select = self.basicTab_selectComboBox_2.currentText()
-        selectKeywordDict = {
-            "基础塔": "BASIC",
-            "狙击塔": "SNIPER",
-            "加农炮": "CANNON",
-            "寒冰塔": "FREEZING",
-            "防空塔": "AIR",
-            "溅射塔": "SPLASH",
-            "爆破塔": "BLAST",
-            "散射塔": "MULTISHOT",
-            "机枪塔": "MINIGUN",
-            "毒液塔": "VENOM",
-            "特斯拉": "TESLA",
-            "导弹": "MISSILE",
-            "火焰塔": "FLAME",
-            "激光塔": "LASER",
-            "电磁炮": "GAUSS",
-            "破碎机": "CRUSHER",
-            "火球": "ABILITY_FIREBALL",
-            "暴风雪": "ABILITY_BLIZZARD",
-            "火焰风暴": "ABILITY_FIRESTORM",
-            "雷": "ABILITY_THUNDER",
-            "烟雾弹": "ABILITY_SMOKE",
-            "风暴": "ABILITY_WINDSTORM",
-            "磁铁": "ABILITY_MAGNET",
-            "子弹墙": "ABILITY_BULLET_WALL",
-            "球状闪电": "ABILITY_BALL_LIGHTNING",
-            "LOIC": "ABILITY_LOIC",
-            "核武器": "ABILITY_NUKE",
-            "超载": "ABILITY_OVERLOAD",
-            "矿机": "MINER",
-            "积分": "SCORE",
-        }
+        selectKeywordDict = self.const.selectKeywordDict
         resDict = {}
         for var in self.gameValueFileContent:
             if selectKeywordDict[select] in var:
                 resDict[var] = self.gameValueFileContent[var]
 
+        # 将resDict转换成2d列表
+        data = []
+        for key in resDict:
+            data.append([key, resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
         # 将筛选结果渲染到表格中
-        self.tableWidgetManager.renderItemsFromDict(resDict)
+        self.basicTab_tableWidgetManager.render(data)
 
-        return resDict
-
+    # FIXED:
     def valueModify(self):
         row = self.basicTab_tableWidget.currentRow()
         col = self.basicTab_tableWidget.currentColumn()
-        if col == 4:
+        if col == 3:
             value = self.basicTab_tableWidget.item(row, col).text()
             if value != '':
-                if self.basicTab_tableWidget.item(row, 2).text() == '布尔值':
+                if self.basicTab_tableWidget.item(row, 2).text() == 'BOOLEAN':
                     if value in ["1", "0"]:
                         pass
                     else:
@@ -371,42 +336,58 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                         self.logger.error('布尔值只能为0或1')
                         return 0
 
-                var = self.basicTab_tableWidget.item(row, 0).text().replace(" ", "_")
-                self.gameValueFileContent[var]['modify'] = value
+                var = self.basicTab_tableWidget.item(row, 0).text()
 
-                self.listWidgetManager.update(var, value)
-                self.logger.info(f'修改变量{var}的值为{value}')
+                item = TreeViewItem("单元格修改", self.basicTab_tableWidget, int(col), int(row),
+                                    self.gameValueFileContent[var]['default'], value)
+                self.treeViewManager.addTreeItem(item)
 
+                self.gameValueFileContent[var]['default'] = value
+
+    # FIXED:
     def recallRecord(self):
-        currentRow = self.modifyRecordUndoView.currentIndex()
-        print(currentRow)
-        if currentRow != -1:
-            var = self.listWidgetManager.getvar(currentRow)  # 获取撤回的变量
-            self.listWidgetManager.remove(currentRow)  # 删除撤回的变量
-            print(var)
-            # 获取当前表格中显示的所有变量
-            currentTableVars = self.tableWidgetManager.getCurrentVars()
-            if var in currentTableVars:
-                # 如果撤回的变量在表格中，那么就刷新显示
-                self.basicTab_tableWidget.item(currentTableVars.index(var), 4).setText('')
+        '''撤回修改'''
+        # 尝试获取当前行的子项：返回-1表示没有子项，当前项就是父项
+        currentRow = self.modifyRecordTreeView.currentIndex().child(0, 0).row()
+        if currentRow == -1:
+            # 说明选的是子项
+            currentSubRow = self.modifyRecordTreeView.currentIndex().row()
+            parentRow = self.modifyRecordTreeView.currentIndex().parent().row()
+            if parentRow == -1:
+                # 说明选的是根节点，或者list里没有修改记录
+                return 0
             else:
-                # 如果撤回的变量不在表格中，那么就更新gameValueFileContent
-                self.gameValueFileContent[var]['modify'] = ''
-            self.logger.info(f'撤回修改变量{var}')
+                res, locTable, _, row = self.treeViewManager.removeTreeItem(parentRow, currentSubRow)
+                # 更新表格
+                var = locTable.item(row, 0).text()
+                self.tableWidgetFileDict[locTable][var]['default'] = res
+
+        else:
+            # 说明选的是父项
+            res, locTable, _, row = self.treeViewManager.removeTreeItem(currentRow, -1)
+            # 更新表格
+            var = locTable.item(row, 0).text()
+            self.tableWidgetFileDict[locTable][var]['default'] = res
+
+        # 刷新显示
+        locTable.item(row, 3).setText(str(res))
+        # 恢复信号连接
+        locTable.itemChanged.connect(self.valueModify)
 
     def resetRecord(self):
         choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
                                          QMessageBox.StandardButton.Cancel)
         if choose == QMessageBox.StandardButton.Ok:
-            # 获取当前表格中显示的所有变量
-            currentTableVars = self.tableWidgetManager.getCurrentVars()
-            for var in self.listWidgetManager.varList:
-                self.gameValueFileContent[var]['modify'] = ''
-                if var in currentTableVars:
-                    self.basicTab_tableWidget.item(currentTableVars.index(var), 4).setText('')
+            for i in range(self.treeViewManager.itemsNum-1, -1, -1):
+                res, locTable, _, row = self.treeViewManager.removeTreeItem(i, -1)
+                # 更新表格
+                var = locTable.item(row, 0).text()
+                self.gameValueFileContent[var]['default'] = res
 
-            self.listWidgetManager.clear()
-            self.logger.info('重置修改记录')
+                # 刷新显示
+                locTable.item(row, 3).setText(str(res))
+                # 恢复信号连接
+                locTable.itemChanged.connect(self.valueModify)
         else:
             pass
 
@@ -595,7 +576,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.towerTab_basicAttributeTableWidget.setHorizontalHeaderLabels(basicAttHeader)
         self.towerTab_basicAttributeTableWidget.setRowCount(12)
         self.towerTab_basicAttributeTableWidget.setVerticalHeaderLabels(verticalHeader)
-        
+
         for i in range(len(basicAttInfo)):
             for j in range(len(basicAttInfo[i])):
                 item = QTableWidgetItem(str(basicAttInfo[i][j]))
@@ -607,7 +588,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.towerTab_abilityTableWidget.setHorizontalHeaderLabels(abilityHeader)
         self.towerTab_abilityTableWidget.setRowCount(3)
         self.towerTab_abilityTableWidget.setVerticalHeaderLabels(verticalHeader)
-        
+
         for i in range(len(abilityInfo)):
             for j in range(len(abilityInfo[i])):
                 item = QTableWidgetItem(str(abilityInfo[i][j]))
@@ -664,8 +645,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         value = item.text()
         # 获取塔的名称
         towerName = self.currentTower.upper()
-        print(towerName, rowHeader.replace("L",""), attributesEn[columnHeader], value)
+        print(towerName, rowHeader.replace("L", ""), attributesEn[columnHeader], value)
         # 修改数据
         self.towerTab_basicAttributeTableWidgetInfo[towerName][col][row] = value
-        
-

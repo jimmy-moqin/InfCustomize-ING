@@ -34,3 +34,4 @@ dic = {
         }
 for k,v in dic.items():
     print(f'"{v}": "{k}",')
+setHorizontalHeaders(self, labels:List)
