@@ -1,3 +1,4 @@
+import random
 from typing import Tuple
 
 from PyQt5.QtCore import Qt
@@ -7,18 +8,22 @@ from PyQt5.QtWidgets import QTableWidget, QTreeView
 
 class TreeViewItem():
 
-    def __init__(self, modifyType: str, location: QTableWidget, col: int, row: int, oldValue: str, newValue: str):
+    def __init__(self, modifyType: str, location: QTableWidget, mapto: dict, keys: tuple, col: int, row: int, colHeader:str, rowHeader:str, oldValue: str, newValue: str):
         self.modifyType = modifyType
         self.location = location
+        self.mapto = mapto
+        self.keys = keys
         self.col = col
         self.row = row
+        self.colHeader = colHeader
+        self.rowHeader = rowHeader
         self.oldValue = oldValue
         self.newValue = newValue
         self.creatHeader()
         self.hash = hash(self.header)
 
     def creatHeader(self):
-        self.header = "{}: {}|[{},{}]".format(self.modifyType, self.location.objectName(), self.col, self.row)
+        self.header = "{}: {} pos[{},{}]".format(self.modifyType, self.location.objectName(), self.rowHeader, self.colHeader)
 
 
 class TreeViewManager(object):
@@ -43,7 +48,7 @@ class TreeViewManager(object):
             item = self.model.item(row, 0)
             subItem = QStandardItem("{} -> {}".format(treeViewItem.oldValue, treeViewItem.newValue))
             item.appendRow(subItem)
-            self.itemsDict[treeViewItem.hash].append((treeViewItem.oldValue,treeViewItem.newValue))
+            self.itemsDict[treeViewItem.hash].append((treeViewItem.oldValue, treeViewItem.newValue))
 
         else:
             # 如果不存在这个item,
@@ -57,20 +62,22 @@ class TreeViewManager(object):
             item.appendRow(subItem)
             self.model.setItem(self.itemsNum, 0, item)
 
-            self.itemsDict[treeViewItem.hash].append((treeViewItem.oldValue,treeViewItem.newValue))
+            self.itemsDict[treeViewItem.hash].append((treeViewItem.oldValue, treeViewItem.newValue))
 
         self.itemsNum = len(self.itemsDict)
 
-    def removeTreeItem(self, parentRow:int, childRow:int) ->Tuple[str,QTableWidget,int,int]:
+    def removeTreeItem(self, parentRow: int, childRow: int) -> Tuple[str, QTableWidget, dict, tuple, int, int]:
         '''删除树形视图中的item'''
         itemHash = hash(self.itemsList[parentRow])
-        loc:QTableWidget = self.itemsHashDict[itemHash].location
-        col:int = self.itemsHashDict[itemHash].col
-        row:int = self.itemsHashDict[itemHash].row
+        loc: QTableWidget = self.itemsHashDict[itemHash].location
+        col: int = self.itemsHashDict[itemHash].col
+        row: int = self.itemsHashDict[itemHash].row
+        mapto: dict = self.itemsHashDict[itemHash].mapto
+        keys: tuple = self.itemsHashDict[itemHash].keys
 
         # 断开表格的信号连接
-        loc.disconnect() ###此处在管理器内断开了信号槽链接，一定要在调用后重连
-        
+        loc.disconnect()  ###此处在管理器内断开了信号槽链接，一定要在调用后重连
+
         if childRow == -1:
             updateValue = self.itemsDict[itemHash][0][0]
             # 删除父item
@@ -79,14 +86,14 @@ class TreeViewManager(object):
             self.itemsHashDict.pop(itemHash)
             self.itemsList.remove(self.itemsList[parentRow])
             self.itemsNum = len(self.itemsDict)
-            return updateValue,loc,col,row
+            return updateValue, loc, mapto, keys, col, row
         else:
             # 删除子item
             item = self.model.item(parentRow, 0)
             parentItem = self.itemsDict[itemHash]
             updateValue = parentItem[0][0]
             # 使用循环删除所选子项一下的所有项目，包括所选子项
-            for i in range(len(parentItem)-1,childRow-1,-1):
+            for i in range(len(parentItem) - 1, childRow - 1, -1):
                 item.removeRow(i)
                 parentItem.remove(parentItem[i])
                 self.itemsNum = len(self.itemsDict)
@@ -96,11 +103,11 @@ class TreeViewManager(object):
                 self.itemsDict.pop(itemHash)
                 self.itemsList.remove(self.itemsList[parentRow])
                 self.itemsNum = len(self.itemsDict)
-                return updateValue,loc,col,row
+                return updateValue, loc, mapto, keys, col, row
             else:
                 # 如果在删除子项后父项不为空，则返回最后一个子项的newvalue
                 updateValue = parentItem[-1][-1]
-                return updateValue,loc,col,row
-    
+                return updateValue, loc, mapto, keys, col, row
 
-        
+    def getconnect(self, loc: QTableWidget):
+        return

@@ -36,5 +36,12 @@ class TableWidgetManager():
                     self.tableWidget.setItem(row, col, QTableWidgetItem(str(data[row][col])))
         else:
             self.tableWidget.setRowCount(0)
+    
+    def getFirstColunm(self) -> List[str]:
+        '''获取第一列数据'''
+        data = []
+        for row in range(self.rows):
+            data.append(self.tableWidget.item(row, 0).text())
+        return data
 
     

@@ -41,17 +41,22 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 获取当前路径
         self.currentPath = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         self.cachePath = os.path.join(self.currentPath, 'cache')
-        
+
         # 默认文件路径
         self.defaultFilePath = os.path.join(self.currentPath, 'default')
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
         self.defaultTowerStatFile = os.path.join(self.defaultFilePath, 'tower-stats.json')
 
         # 表格对象和默认文件对应关系字典
-        self.tableWidgetFileDict = {
+        self.tableFileMap = {
             self.basicTab_tableWidget: {},
         }
-
+        # 默认文件字典结构与表字段映射
+        self.fileDictSchameMap = {
+            self.defaultGameValueFile: {
+                3: "default",
+            }
+        }
 
         self.initMenu()
 
@@ -242,9 +247,9 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 将变量的描述信息填充到变量字典中
         for var in self.const.game_values:
             self.gameValueFileContent[var]['desc'] = self.const.game_values[var]
-        
+
         # 将基础变量文件映射到表对象字典中
-        self.tableWidgetFileDict[self.basicTab_tableWidget] = self.gameValueFileContent
+        self.tableFileMap[self.basicTab_tableWidget] = self.gameValueFileContent
 
         # 将字典转换成2d列表
         data = []
@@ -260,10 +265,13 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
     # FIXED:
     def searchBasicVar(self):
         '''搜索基础变量'''
+        self.basicTab_tableWidget.disconnect()  # 暂时断开tableWidget的信号槽
         # 获取搜索框内容
         searchContent = self.basicTab_searchLineEdit.text()
         # 如果搜索框内容为空，则不搜索
         if searchContent.strip() == '':
+            # 重新连接tableWidget的信号槽
+            self.basicTab_tableWidget.cellChanged.connect(self.valueModify)
             return 0
         # 如果搜索框内容不为空，则搜索
         else:
@@ -283,6 +291,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             self.basicTab_tableWidget.clearContents()
             # 将搜索结果渲染到表格中
             self.basicTab_tableWidgetManager.render(data)
+            # 重新连接tableWidget的信号槽
+            self.basicTab_tableWidget.cellChanged.connect(self.valueModify)
 
     # FIXED:
     def selectChange(self):
@@ -306,6 +316,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
     # FIXED:
     def selectBasicVar(self):
+        self.basicTab_tableWidget.disconnect()  # 暂时断开对tableWidget的信号槽连接
         select = self.basicTab_selectComboBox_2.currentText()
         selectKeywordDict = self.const.selectKeywordDict
         resDict = {}
@@ -319,6 +330,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             data.append([key, resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
         # 将筛选结果渲染到表格中
         self.basicTab_tableWidgetManager.render(data)
+        # 重新连接对tableWidget的信号槽连接
+        self.basicTab_tableWidget.cellChanged.connect(self.valueModify)
 
     # FIXED:
     def valueModify(self):
@@ -338,8 +351,16 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
                 var = self.basicTab_tableWidget.item(row, 0).text()
 
-                item = TreeViewItem("单元格修改", self.basicTab_tableWidget, int(col), int(row),
-                                    self.gameValueFileContent[var]['default'], value)
+                item = TreeViewItem(modifyType="TCC",
+                                    location=self.basicTab_tableWidget,
+                                    mapto=self.gameValueFileContent,
+                                    keys=(var, 'default'),
+                                    col=int(col),
+                                    row=int(row),
+                                    colHeader=self.basicTab_tableWidget.horizontalHeaderItem(col).text(),
+                                    rowHeader=var,
+                                    oldValue=self.gameValueFileContent[var]['default'],
+                                    newValue=value)
                 self.treeViewManager.addTreeItem(item)
 
                 self.gameValueFileContent[var]['default'] = value
@@ -357,20 +378,28 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 # 说明选的是根节点，或者list里没有修改记录
                 return 0
             else:
-                res, locTable, _, row = self.treeViewManager.removeTreeItem(parentRow, currentSubRow)
+                res, locTable, mapto, keys, col, row = self.treeViewManager.removeTreeItem(parentRow, currentSubRow)
                 # 更新表格
-                var = locTable.item(row, 0).text()
-                self.tableWidgetFileDict[locTable][var]['default'] = res
+                for key in keys[:-1]:
+                    temp = mapto
+                    temp = temp[key]
+                temp[keys[-1]] = res
 
         else:
             # 说明选的是父项
-            res, locTable, _, row = self.treeViewManager.removeTreeItem(currentRow, -1)
+            res, locTable, mapto, keys, col, row = self.treeViewManager.removeTreeItem(currentRow, -1)
             # 更新表格
-            var = locTable.item(row, 0).text()
-            self.tableWidgetFileDict[locTable][var]['default'] = res
+            for key in keys[:-1]:
+                temp = mapto
+                temp = temp[key]
+            temp[keys[-1]] = res
 
         # 刷新显示
-        locTable.item(row, 3).setText(str(res))
+        firstCol = self.basicTab_tableWidgetManager.getFirstColunm()
+        if locTable.item(row, 0).text() in firstCol:
+            locTable.item(row, col).setText(str(res))
+        else:
+            pass
         # 恢复信号连接
         locTable.itemChanged.connect(self.valueModify)
 
@@ -378,14 +407,20 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
                                          QMessageBox.StandardButton.Cancel)
         if choose == QMessageBox.StandardButton.Ok:
-            for i in range(self.treeViewManager.itemsNum-1, -1, -1):
-                res, locTable, _, row = self.treeViewManager.removeTreeItem(i, -1)
+            for i in range(self.treeViewManager.itemsNum - 1, -1, -1):
+                res, locTable, mapto, keys, col, row = self.treeViewManager.removeTreeItem(i, -1)
                 # 更新表格
-                var = locTable.item(row, 0).text()
-                self.gameValueFileContent[var]['default'] = res
+                for key in keys[:-1]:
+                    temp = mapto
+                    temp = temp[key]
+                temp[keys[-1]] = res
 
                 # 刷新显示
-                locTable.item(row, 3).setText(str(res))
+                firstCol = self.basicTab_tableWidgetManager.getFirstColunm()
+                if locTable.item(row, 0).text() in firstCol:
+                    locTable.item(row, col).setText(str(res))
+                else:
+                    pass
                 # 恢复信号连接
                 locTable.itemChanged.connect(self.valueModify)
         else:
