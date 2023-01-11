@@ -237,11 +237,6 @@
             </attribute>
             <column>
              <property name="text">
-              <string>变量</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
               <string>含义</string>
              </property>
             </column>

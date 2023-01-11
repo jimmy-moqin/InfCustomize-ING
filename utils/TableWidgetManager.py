@@ -25,23 +25,21 @@ class TableWidgetManager():
         self.rows = len(labels)
         self.tableWidget.setVerticalHeaderLabels(labels)
 
-    def render(self, data:List[List[str]]):
+    def render(self,horizonalHeader:list, verticalHeader:list, data:List[List[str]]):
         '''渲染表格'''
         self.rows = len(data)
         if self.rows != 0:
             self.cols = len(data[0])
-            self.tableWidget.setRowCount(self.rows)
+            self.setHorizontalHeaders(horizonalHeader)
+            self.setVerticalHeaders(verticalHeader)
             for row in range(self.rows):
                 for col in range(self.cols):
                     self.tableWidget.setItem(row, col, QTableWidgetItem(str(data[row][col])))
         else:
             self.tableWidget.setRowCount(0)
     
-    def getFirstColunm(self) -> List[str]:
-        '''获取第一列数据'''
-        data = []
-        for row in range(self.rows):
-            data.append(self.tableWidget.item(row, 0).text())
-        return data
+    def getVerticalHeader(self):
+        '''获取行头'''
+        return [self.tableWidget.verticalHeaderItem(i).text() for i in range(self.rows)]
 
     

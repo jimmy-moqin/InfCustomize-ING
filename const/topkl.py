@@ -2,7 +2,7 @@ import json
 import pickle as pkl
 
 # 基础变量
-with open("./default/game-values.json",mode="r",encoding="utf-8") as f:
+with open("../default/game-values.json",mode="r",encoding="utf-8") as f:
     data = json.load(f)
 
 res = {}
@@ -11,7 +11,7 @@ for i in data:
         res[i] = data[i]["desc"]
     else:
         res[i] = "-"
-with open("./desc/game-values.pkl",mode="wb") as f:
+with open("game-values.pkl",mode="wb") as f:
     pkl.dump(res,f)
 
 # towerNameZh
@@ -33,7 +33,7 @@ towerNameZh = [
                 "电磁炮",
                 "破碎机",
             ]
-with open("./desc/towerNameZh.pkl",mode="wb") as f:
+with open("towerNameZh.pkl",mode="wb") as f:
     pkl.dump(towerNameZh,f)
 
 # AbilityNameZh
@@ -51,7 +51,7 @@ AbilityNameZh = [
                 "核武器",
                 "超载",
             ]
-with open("./desc/AbilityNameZh.pkl",mode="wb") as f:
+with open("AbilityNameZh.pkl",mode="wb") as f:
     pkl.dump(AbilityNameZh,f)
 
 selectKeywordDict = {
@@ -86,7 +86,7 @@ selectKeywordDict = {
             "矿机": "MINER",
             "积分": "SCORE",
         }
-with open("./desc/selectKeywordDict.pkl",mode="wb") as f:
+with open("selectKeywordDict.pkl",mode="wb") as f:
     pkl.dump(selectKeywordDict,f)
 
 attributesZh = {
@@ -123,7 +123,7 @@ attributesZh = {
             'U_BONUS_EXPERIENCE': '经验加成',
             'U_LRM_AIM_SPEED': '瞄准速度',
         }
-with open("./desc/attributesZh.pkl",mode="wb") as f:
+with open("attributesZh.pkl",mode="wb") as f:
     pkl.dump(attributesZh,f)
 
 attributesEn = {
@@ -160,5 +160,5 @@ attributesEn = {
             "经验加成": "U_BONUS_EXPERIENCE",
             "瞄准速度": "U_LRM_AIM_SPEED",
         }
-with open("./desc/attributesEn.pkl",mode="wb") as f:
+with open("attributesEn.pkl",mode="wb") as f:
     pkl.dump(attributesEn,f)

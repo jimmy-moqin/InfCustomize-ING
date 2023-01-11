@@ -47,17 +47,6 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.defaultGameValueFile = os.path.join(self.defaultFilePath, 'game-values.json')
         self.defaultTowerStatFile = os.path.join(self.defaultFilePath, 'tower-stats.json')
 
-        # 表格对象和默认文件对应关系字典
-        self.tableFileMap = {
-            self.basicTab_tableWidget: {},
-        }
-        # 默认文件字典结构与表字段映射
-        self.fileDictSchameMap = {
-            self.defaultGameValueFile: {
-                3: "default",
-            }
-        }
-
         self.initMenu()
 
         self.initUI()
@@ -85,8 +74,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.recallRecordBtn.clicked.connect(self.recallRecord)
         self.resetModifyBtn.clicked.connect(self.resetRecord)
         self.exportRecordBtn.clicked.connect(self.exportRecord)
-        self.outputBtn.clicked.connect(self.outputFile)
-        self.applyBtn.clicked.connect(self.applyFile)
+        # self.outputBtn.clicked.connect(self.outputFile)
+        # self.applyBtn.clicked.connect(self.applyFile)
         self.basicTab_infoBtn.clicked.connect(lambda: self.showRecordInfo(self.modifyRecordWidget))
 
         # 绑定ComboBox动作
@@ -97,14 +86,11 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 设置表格头部自适应缩放
         self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        # self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(2, QHeaderView.ResizeMode.ResizeToContents)
-        # self.basicTab_tableWidget.horizontalHeader().setSectionResizeMode(3, QHeaderView.ResizeMode.ResizeToContents)
-        # 隐藏列表头
-        self.basicTab_tableWidget.verticalHeader().setHidden(True)
+
         # 设置表格自动换行
         self.basicTab_tableWidget.setWordWrap(True)
-        # 设置表格前三列不可编辑
-        for i in range(0, 3):
+        # 设置表格前2列不可编辑
+        for i in range(0, 2):
             self.basicTab_tableWidget.setItemDelegateForColumn(i, EmptyDelegate(self))
 
         # 设置修改记录widget隐藏
@@ -248,19 +234,17 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         for var in self.const.game_values:
             self.gameValueFileContent[var]['desc'] = self.const.game_values[var]
 
-        # 将基础变量文件映射到表对象字典中
-        self.tableFileMap[self.basicTab_tableWidget] = self.gameValueFileContent
-
         # 将字典转换成2d列表
         data = []
         for key in self.gameValueFileContent:
             data.append([
-                key, self.gameValueFileContent[key]['desc'], self.gameValueFileContent[key]['units'],
+                self.gameValueFileContent[key]['desc'], self.gameValueFileContent[key]['units'],
                 self.gameValueFileContent[key]['default']
             ])
-
         # 从字典将数据渲染到表格中
-        self.basicTab_tableWidgetManager.render(data)
+        self.basicTab_tableWidgetManager.render(horizonalHeader=['含义', '类型', '默认值'],
+                                                verticalHeader=list(self.gameValueFileContent.keys()),
+                                                data=data)
 
     # FIXED:
     def searchBasicVar(self):
@@ -286,11 +270,13 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             # 将resDict转换成2d列表
             data = []
             for key in resDict:
-                data.append([key, resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
+                data.append([resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
             # 清空表格
-            self.basicTab_tableWidget.clearContents()
+            self.basicTab_tableWidget.clear()
             # 将搜索结果渲染到表格中
-            self.basicTab_tableWidgetManager.render(data)
+            self.basicTab_tableWidgetManager.render(horizonalHeader=['含义', '类型', '默认值'],
+                                                    verticalHeader=list(resDict.keys()),
+                                                    data=data)
             # 重新连接tableWidget的信号槽
             self.basicTab_tableWidget.cellChanged.connect(self.valueModify)
 
@@ -327,9 +313,11 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 将resDict转换成2d列表
         data = []
         for key in resDict:
-            data.append([key, resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
+            data.append([resDict[key]['desc'], resDict[key]['units'], resDict[key]['default']])
         # 将筛选结果渲染到表格中
-        self.basicTab_tableWidgetManager.render(data)
+        self.basicTab_tableWidgetManager.render(horizonalHeader=['含义', '类型', '默认值'],
+                                                verticalHeader=list(resDict.keys()),
+                                                data=data)
         # 重新连接对tableWidget的信号槽连接
         self.basicTab_tableWidget.cellChanged.connect(self.valueModify)
 
@@ -337,10 +325,10 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
     def valueModify(self):
         row = self.basicTab_tableWidget.currentRow()
         col = self.basicTab_tableWidget.currentColumn()
-        if col == 3:
+        if col == 2:
             value = self.basicTab_tableWidget.item(row, col).text()
             if value != '':
-                if self.basicTab_tableWidget.item(row, 2).text() == 'BOOLEAN':
+                if self.basicTab_tableWidget.item(row, 1).text() == 'BOOLEAN':
                     if value in ["1", "0"]:
                         pass
                     else:
@@ -348,8 +336,8 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                         QMessageBox.warning(self, '错误', '布尔值只能为0或1')
                         self.logger.error('布尔值只能为0或1')
                         return 0
-
-                var = self.basicTab_tableWidget.item(row, 0).text()
+                # 获得本行的行头
+                var = self.basicTab_tableWidget.verticalHeaderItem(row).text()
 
                 item = TreeViewItem(modifyType="TCC",
                                     location=self.basicTab_tableWidget,
@@ -365,6 +353,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
                 self.gameValueFileContent[var]['default'] = value
 
+    ################## Methods of Modify Record Widget ##################
     # FIXED:
     def recallRecord(self):
         '''撤回修改'''
@@ -378,46 +367,54 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 # 说明选的是根节点，或者list里没有修改记录
                 return 0
             else:
-                res, locTable, mapto, keys, col, row = self.treeViewManager.removeTreeItem(parentRow, currentSubRow)
+                res, locTable, mapto, keys, col, row, colHeader, rowHeader = self.treeViewManager.removeTreeItem(
+                    parentRow, currentSubRow)
                 # 更新表格
+                temp = mapto
                 for key in keys[:-1]:
-                    temp = mapto
                     temp = temp[key]
                 temp[keys[-1]] = res
 
         else:
             # 说明选的是父项
-            res, locTable, mapto, keys, col, row = self.treeViewManager.removeTreeItem(currentRow, -1)
+            res, locTable, mapto, keys, col, row, colHeader, rowHeader = self.treeViewManager.removeTreeItem(
+                currentRow, -1)
             # 更新表格
+            temp = mapto
             for key in keys[:-1]:
-                temp = mapto
                 temp = temp[key]
             temp[keys[-1]] = res
 
         # 刷新显示
-        firstCol = self.basicTab_tableWidgetManager.getFirstColunm()
-        if locTable.item(row, 0).text() in firstCol:
+        verticalHeaders = []
+        for i in range(locTable.rowCount()):
+            verticalHeaders.append(locTable.verticalHeaderItem(i).text())
+        if rowHeader in verticalHeaders:
             locTable.item(row, col).setText(str(res))
         else:
             pass
         # 恢复信号连接
         locTable.itemChanged.connect(self.valueModify)
 
+    # FIXED:
     def resetRecord(self):
+        '''重置修改'''
         choose = QMessageBox.information(self, '提示', '重置修改记录后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
                                          QMessageBox.StandardButton.Cancel)
         if choose == QMessageBox.StandardButton.Ok:
             for i in range(self.treeViewManager.itemsNum - 1, -1, -1):
-                res, locTable, mapto, keys, col, row = self.treeViewManager.removeTreeItem(i, -1)
+                res, locTable, mapto, keys, col, row, colHeader, rowHeader = self.treeViewManager.removeTreeItem(i, -1)
                 # 更新表格
+                temp = mapto
                 for key in keys[:-1]:
-                    temp = mapto
                     temp = temp[key]
                 temp[keys[-1]] = res
 
                 # 刷新显示
-                firstCol = self.basicTab_tableWidgetManager.getFirstColunm()
-                if locTable.item(row, 0).text() in firstCol:
+                verticalHeaders = []
+                for i in range(locTable.rowCount()):
+                    verticalHeaders.append(locTable.verticalHeaderItem(i).text())
+                if rowHeader in verticalHeaders:
                     locTable.item(row, col).setText(str(res))
                 else:
                     pass
@@ -426,58 +423,20 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         else:
             pass
 
+    # FIXED:
     def exportRecord(self):
-        if self.listWidgetManager.varList == []:
+        '''导出修改记录'''
+        if self.treeViewManager.itemsNum == 0:
             QMessageBox.warning(self, '错误', '没有修改记录')
             self.logger.error('没有修改记录')
             return 0
         else:
             path = QFileDialog.getSaveFileName(self, '保存修改记录', './', '文本文件(*.txt)')[0]
             if path != '':
-                self.listWidgetManager.output(path)
+                self.treeViewManager.output(path)
                 self.logger.info(f'保存修改记录到{path}')
             else:
                 pass
-
-    def outputFile(self):
-        path = QFileDialog.getSaveFileName(self, '保存修改后的文件', './', 'json源文件(*.json)')[0]
-        if path != '':
-            outputDict = self.gameValueFileContent.copy()
-            modifyVars = self.listWidgetManager.varList
-            for var in modifyVars:
-                outputDict[var]['default'] = int(outputDict[var]['modify'])
-                del outputDict[var]['modify']
-            for var in outputDict:
-                del outputDict[var]['desc']
-
-            with open(path, 'w', encoding='utf-8') as f:
-                json.dump(outputDict, f, indent=4, ensure_ascii=False)
-            self.logger.info(f'保存修改后的文件到{path}')
-        else:
-            pass
-
-    def applyFile(self):
-        choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
-                                     QMessageBox.StandardButton.Cancel)
-        if choose == QMessageBox.StandardButton.Ok:
-            path = os.path.join(self.gamePath, "res/"
-                                'game-values.json')
-            if path != '':
-                outputDict = self.gameValueFileContent.copy()
-                modifyVars = self.listWidgetManager.varList
-                for var in modifyVars:
-                    outputDict[var]['default'] = int(outputDict[var]['modify'])
-                    del outputDict[var]['modify']
-                for var in outputDict:
-                    del outputDict[var]['desc']
-
-                with open(path, 'w', encoding='utf-8') as f:
-                    json.dump(outputDict, f, indent=4, ensure_ascii=False)
-                self.logger.info(f'覆盖修改后的文件到{path}')
-            else:
-                pass
-        else:
-            pass
 
     def showRecordInfo(self, widget):
         '''可能的公共方法，用于显示或隐藏widget'''
@@ -485,6 +444,46 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
             widget.show()
         else:
             widget.hide()
+
+    # def outputFile(self):
+    #     path = QFileDialog.getSaveFileName(self, '保存修改后的文件', './', 'json源文件(*.json)')[0]
+    #     if path != '':
+    #         outputDict = self.gameValueFileContent.copy()
+    #         modifyVars = self.listWidgetManager.varList
+    #         for var in modifyVars:
+    #             outputDict[var]['default'] = int(outputDict[var]['modify'])
+    #             del outputDict[var]['modify']
+    #         for var in outputDict:
+    #             del outputDict[var]['desc']
+
+    #         with open(path, 'w', encoding='utf-8') as f:
+    #             json.dump(outputDict, f, indent=4, ensure_ascii=False)
+    #         self.logger.info(f'保存修改后的文件到{path}')
+    #     else:
+    #         pass
+
+    # def applyFile(self):
+    #     choose = QMessageBox.warning(self, '警告', '覆盖文件后，所有修改将不可恢复', QMessageBox.StandardButton.Ok,
+    #                                  QMessageBox.StandardButton.Cancel)
+    #     if choose == QMessageBox.StandardButton.Ok:
+    #         path = os.path.join(self.gamePath, "res/"
+    #                             'game-values.json')
+    #         if path != '':
+    #             outputDict = self.gameValueFileContent.copy()
+    #             modifyVars = self.listWidgetManager.varList
+    #             for var in modifyVars:
+    #                 outputDict[var]['default'] = int(outputDict[var]['modify'])
+    #                 del outputDict[var]['modify']
+    #             for var in outputDict:
+    #                 del outputDict[var]['desc']
+
+    #             with open(path, 'w', encoding='utf-8') as f:
+    #                 json.dump(outputDict, f, indent=4, ensure_ascii=False)
+    #             self.logger.info(f'覆盖修改后的文件到{path}')
+    #         else:
+    #             pass
+    #     else:
+    #         pass
 
     ################## Methods of Tab Tower ##################
     def tagChange(self, towerName):
@@ -513,40 +512,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
     def towerStatsFileParse(self):
         '''解析tower_stats.json文件'''
-        attributesZh = {
-            'prices': '价格',
-            'RANGE': '射程',
-            'DAMAGE': '伤害',
-            'ATTACK_SPEED': '攻击速度',
-            'ROTATION_SPEED': '旋转速度',
-            'PROJECTILE_SPEED': '子弹速度',
-            'U_BURN_CHANCE': '燃烧机率',
-            'U_BURNING_TIME': '燃烧时间',
-            'U_DAMAGE_MULTIPLY': '伤害加成',
-            'STUN_CHANCE': '眩晕机率',
-            'U_STUN_DURATION': '眩晕时间',
-            'U_EXPLOSION_RANGE': '爆炸范围',
-            'FREEZE_PERCENT': '冰冻机率',
-            'FREEZE_SPEED': '冰冻速度',
-            'U_POISON_DURATION_BONUS': '中毒时间',
-            'U_CHAIN_LIGHTNING_BONUS_LENGTH': '链电长度',
-            'U_BATTERIES_CAPACITY': '电池容量',
-            'U_ACCELERATION': '加速度',
-            'U_PROJECTILE_COUNT': '子弹数量',
-            'U_SHOOT_ANGLE': '射击角度',
-            'AIM_SPEED': '瞄准速度',
-            'U_CRIT_CHANCE': '暴击机率',
-            'U_CRIT_MULTIPLIER': '暴击加成',
-            'ACCURACY': '精准度',
-            'CHAIN_LIGHTNING_DAMAGE': '链电伤害',
-            'U_CHAIN_LIGHTNING_LENGTH': '链电长度',
-            'U_POISON_DURATION': '中毒时间',
-            'RESOURCE_CONSUMPTION': '资源消耗',
-            'CHARGING_SPEED': '充能速度',
-            'DURATION': '持续时间',
-            'U_BONUS_EXPERIENCE': '经验加成',
-            'U_LRM_AIM_SPEED': '瞄准速度',
-        }
+        attributesZh = self.const.attributesZh
         with open(self.towerStatsFile, 'r', encoding='utf-8') as f:
             towerStats = json.load(f)
 
@@ -606,7 +572,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         abilityHeader = self.towerTab_abilityTableWidgetHeader[towerName]
 
         # self.towerTab_basicAttributeTableWidget.clear()
-        verticalHeader = ['L0', 'L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7', 'L8', 'L9', 'L10', '最大值']
+        verticalHeader = [towerName + '-L0', towerName + '-L1', towerName + '-L2', towerName + '-L3', towerName + '-L4', towerName + '-L5', towerName + '-L6', towerName + '-L7', towerName + '-L8', towerName + '-L9', towerName + '-L10', towerName + '-最大值']
         self.towerTab_basicAttributeTableWidget.setColumnCount(len(basicAttHeader))
         self.towerTab_basicAttributeTableWidget.setHorizontalHeaderLabels(basicAttHeader)
         self.towerTab_basicAttributeTableWidget.setRowCount(12)
@@ -618,7 +584,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
                 self.towerTab_basicAttributeTableWidget.setItem(j, i, item)
 
         self.towerTab_abilityTableWidget.clear()
-        verticalHeader = ['初始值', '增量', '最大值']
+        verticalHeader = [towerName + '-初始值', towerName + '-增量', towerName + '-最大值']
         self.towerTab_abilityTableWidget.setColumnCount(len(abilityHeader))
         self.towerTab_abilityTableWidget.setHorizontalHeaderLabels(abilityHeader)
         self.towerTab_abilityTableWidget.setRowCount(3)
@@ -633,41 +599,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.towerTab_basicAttributeTableWidget.cellChanged.connect(self.towerStatChange)
 
     def towerStatChange(self):
-        attributesEn = {
-            "价格": "prices",
-            "射程": "RANGE",
-            "伤害": "DAMAGE",
-            "攻击速度": "ATTACK_SPEED",
-            "旋转速度": "ROTATION_SPEED",
-            "子弹速度": "PROJECTILE_SPEED",
-            "燃烧机率": "U_BURN_CHANCE",
-            "燃烧时间": "U_BURNING_TIME",
-            "伤害加成": "U_DAMAGE_MULTIPLY",
-            "眩晕机率": "STUN_CHANCE",
-            "眩晕时间": "U_STUN_DURATION",
-            "爆炸范围": "U_EXPLOSION_RANGE",
-            "冰冻机率": "FREEZE_PERCENT",
-            "冰冻速度": "FREEZE_SPEED",
-            "中毒时间": "U_POISON_DURATION_BONUS",
-            "链电长度": "U_CHAIN_LIGHTNING_BONUS_LENGTH",
-            "电池容量": "U_BATTERIES_CAPACITY",
-            "加速度": "U_ACCELERATION",
-            "子弹数量": "U_PROJECTILE_COUNT",
-            "射击角度": "U_SHOOT_ANGLE",
-            "瞄准速度": "AIM_SPEED",
-            "暴击机率": "U_CRIT_CHANCE",
-            "暴击加成": "U_CRIT_MULTIPLIER",
-            "精准度": "ACCURACY",
-            "链电伤害": "CHAIN_LIGHTNING_DAMAGE",
-            "链电长度": "U_CHAIN_LIGHTNING_LENGTH",
-            "中毒时间": "U_POISON_DURATION",
-            "资源消耗": "RESOURCE_CONSUMPTION",
-            "充能速度": "CHARGING_SPEED",
-            "持续时间": "DURATION",
-            "经验加成": "U_BONUS_EXPERIENCE",
-            "瞄准速度": "U_LRM_AIM_SPEED",
-        }
-
+        attributesEn = self.const.attributesEn
         row = self.towerTab_basicAttributeTableWidget.currentRow()
         col = self.towerTab_basicAttributeTableWidget.currentColumn()
         # 获取修改的单元格
@@ -681,5 +613,18 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         # 获取塔的名称
         towerName = self.currentTower.upper()
         print(towerName, rowHeader.replace("L", ""), attributesEn[columnHeader], value)
+        item = TreeViewItem(
+            modifyType="TCC",
+            location=self.towerTab_basicAttributeTableWidget,
+            mapto=self.towerTab_basicAttributeTableWidgetInfo,
+            keys=(towerName, col, row),
+            col = col,
+            row = row,
+            colHeader=columnHeader,
+            rowHeader=rowHeader,
+            oldValue=self.towerTab_basicAttributeTableWidgetInfo[towerName][col][row],
+            newValue=value,
+        )
+        self.treeViewManager.addTreeItem(item)
         # 修改数据
         self.towerTab_basicAttributeTableWidgetInfo[towerName][col][row] = value

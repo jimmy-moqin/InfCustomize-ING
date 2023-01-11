@@ -66,12 +66,14 @@ class TreeViewManager(object):
 
         self.itemsNum = len(self.itemsDict)
 
-    def removeTreeItem(self, parentRow: int, childRow: int) -> Tuple[str, QTableWidget, dict, tuple, int, int]:
+    def removeTreeItem(self, parentRow: int, childRow: int) -> Tuple[str, QTableWidget, dict, tuple, int, int, str, str]:
         '''删除树形视图中的item'''
         itemHash = hash(self.itemsList[parentRow])
         loc: QTableWidget = self.itemsHashDict[itemHash].location
         col: int = self.itemsHashDict[itemHash].col
         row: int = self.itemsHashDict[itemHash].row
+        colHeader = self.itemsHashDict[itemHash].colHeader
+        rowHeader = self.itemsHashDict[itemHash].rowHeader
         mapto: dict = self.itemsHashDict[itemHash].mapto
         keys: tuple = self.itemsHashDict[itemHash].keys
 
@@ -86,7 +88,7 @@ class TreeViewManager(object):
             self.itemsHashDict.pop(itemHash)
             self.itemsList.remove(self.itemsList[parentRow])
             self.itemsNum = len(self.itemsDict)
-            return updateValue, loc, mapto, keys, col, row
+            return updateValue, loc, mapto, keys, col, row, colHeader, rowHeader
         else:
             # 删除子item
             item = self.model.item(parentRow, 0)
@@ -103,11 +105,16 @@ class TreeViewManager(object):
                 self.itemsDict.pop(itemHash)
                 self.itemsList.remove(self.itemsList[parentRow])
                 self.itemsNum = len(self.itemsDict)
-                return updateValue, loc, mapto, keys, col, row
+                return updateValue, loc, mapto, keys, col, row, colHeader, rowHeader
             else:
                 # 如果在删除子项后父项不为空，则返回最后一个子项的newvalue
                 updateValue = parentItem[-1][-1]
-                return updateValue, loc, mapto, keys, col, row
+                return updateValue, loc, mapto, keys, col, row, colHeader, rowHeader
 
-    def getconnect(self, loc: QTableWidget):
-        return
+    def output(self,path:str):
+        '''导出修改记录'''
+        with open(path, "w", encoding="utf-8") as f:
+            for i in self.itemsList:
+                f.write(i + "\n")
+                for j in self.itemsDict[hash(i)]:
+                    f.write("    {} -> {}\n".format(j[0], j[1]))

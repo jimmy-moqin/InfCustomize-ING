@@ -13,4 +13,6 @@ class Const(object):
             self.selectKeywordDict = pkl.load(f)
         with open("./const/attributesZh.pkl",mode="rb") as f:
             self.attributesZh = pkl.load(f)
+        with open("./const/attributesEn.pkl",mode="rb") as f:
+            self.attributesEn = pkl.load(f)
     
