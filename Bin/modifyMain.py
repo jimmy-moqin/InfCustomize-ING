@@ -118,7 +118,12 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 设置表格自动换行
         self.towerTab_basicAttributeTableWidget.setWordWrap(True)
-
+        # 绑定表格槽函数
+        self.towerTab_basicAttributeTableWidget.cellChanged.connect(self.towerStatChange)
+        self.towerTab_abilityTableWidget.cellChanged.connect(self.towerStatChange)
+        # 设置表格撑满
+        self.towerTab_basicAttributeTableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
+        self.towerTab_abilityTableWidget.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
     ################## Methods of Menu ##################
 
     def loadGamePath(self):
@@ -564,6 +569,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
     def towerTabTowerStatTableShow(self, towerName):
         # 信号断开
         self.towerTab_basicAttributeTableWidget.disconnect()
+        self.towerTab_abilityTableWidget.disconnect()
 
         towerName = towerName.upper()
         basicAttInfo = self.towerTab_basicAttributeTableWidgetInfo[towerName]
@@ -597,6 +603,7 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
 
         # 加载完后，信号连接-单元格内容改变
         self.towerTab_basicAttributeTableWidget.cellChanged.connect(self.towerStatChange)
+        self.towerTab_abilityTableWidget.cellChanged.connect(self.towerAbilityChange)
 
     def towerStatChange(self):
         attributesEn = self.const.attributesEn
@@ -628,3 +635,34 @@ class ModifyMain(QMainWindow, Ui_ModifyWindow):
         self.treeViewManager.addTreeItem(item)
         # 修改数据
         self.towerTab_basicAttributeTableWidgetInfo[towerName][col][row] = value
+
+    def towerAbilityChange(self):
+        attributesEn = self.const.attributesEn
+        row = self.towerTab_abilityTableWidget.currentRow()
+        col = self.towerTab_abilityTableWidget.currentColumn()
+        # 获取修改的单元格
+        item = self.towerTab_abilityTableWidget.item(row, col)
+        # 获取行标题
+        rowHeader = self.towerTab_abilityTableWidget.verticalHeaderItem(row).text()
+        # 获取列标题
+        columnHeader = self.towerTab_abilityTableWidget.horizontalHeaderItem(col).text()
+        # 获取修改后的值
+        value = item.text()
+        # 获取塔的名称
+        towerName = self.currentTower.upper()
+        print(towerName, rowHeader.replace("L", ""), attributesEn[columnHeader], value)
+        item = TreeViewItem(
+            modifyType="TCC",
+            location=self.towerTab_abilityTableWidget,
+            mapto=self.towerTab_abilityTableWidgetInfo,
+            keys=(towerName, col, row),
+            col = col,
+            row = row,
+            colHeader=columnHeader,
+            rowHeader=rowHeader,
+            oldValue=self.towerTab_abilityTableWidgetInfo[towerName][col][row],
+            newValue=value,
+        )
+        self.treeViewManager.addTreeItem(item)
+        # 修改数据
+        self.towerTab_abilityTableWidgetInfo[towerName][col][row] = value

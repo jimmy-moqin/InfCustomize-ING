@@ -9,4 +9,3 @@ if __name__ == '__main__':
     Ui_ModifyMain.show()#调用主窗口
     sys.exit(app.exec_())
 
- 
